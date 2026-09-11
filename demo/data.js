@@ -464,10 +464,10 @@ const batteryHealthOverviews = {
   },
 };
 // 静态数据：正常/高危参数沿用原型，watch 参数来自 Figma 334:533。
-// 标称续航为独立字段：watch 的 468 来自设计稿；normal/risk 未提供，展示 -。
+// 标称续航为独立示例字段：normal/risk 为400km，watch 沿用设计稿的468km。
 const batteryBasicInformation = {
   normal: {
-    type: "三元锂", nominalCapacity: "153.0", nominalEnergy: "52.6", nominalRange: null,
+    type: "三元锂", nominalCapacity: "153.0", nominalEnergy: "52.6", nominalRange: "400",
     cellVoltage: "4.3", maxTemperature: "54.0", totalVoltage: "410.0",
   },
   watch: {
@@ -476,7 +476,7 @@ const batteryBasicInformation = {
     cellVoltage: "3.95", maxTemperature: "60", totalVoltage: "422.8",
   },
   risk: {
-    type: "三元锂", nominalCapacity: "100.0", nominalEnergy: "60.0", nominalRange: null,
+    type: "三元锂", nominalCapacity: "100.0", nominalEnergy: "60.0", nominalRange: "400",
     cellVoltage: "4.25", maxTemperature: "60.0", totalVoltage: "705.6",
   },
 };

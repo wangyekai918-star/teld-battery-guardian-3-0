@@ -4,6 +4,8 @@
 
 **在线演示：<https://wangyekai918-star.github.io/teld-battery-guardian-3-0/>**
 
+前端交付请下载 [Release 中的 UI 交付包](https://github.com/wangyekai918-star/teld-battery-guardian-3-0/releases/latest)，包含页面源码、资源和接入说明。
+
 - [前端接入说明](handoff/README.md)
 - [图表视觉规范](handoff/CHARTS.md)
 
@@ -19,8 +21,6 @@
 | `handoff/` | 前端接入说明、图表规范和资源清单 |
 | `js/` | 可复用的抽屉、滚动锁、折叠、Tab 交互及图表主题 |
 | `index.html` | 完整报告页面入口与各模块结构参考 |
-| `.gitignore` | 排除本地系统文件和环境配置 |
-| `.nojekyll` | 让 GitHub Pages 直接发布静态文件 |
 
 ## 本地预览
 
@@ -31,6 +31,6 @@ python3 -m http.server 8080
 
 ## 版本与部署
 
-UI 交付版本：`ui-v1.1.11`。GitHub Pages 从 `main` 根目录发布，无需构建。
+UI 交付版本：`ui-v1.1.12`。GitHub Pages 从 `main` 根目录发布，无需构建。
 
 演示内容包含原型数据、示例指标和根据截图绘制的曲线。正式接入时替换为业务数据，并保留资源内的来源与许可注释。

@@ -17,7 +17,7 @@ const actual = assetFiles.map(file => ({
   sha256: crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex'),
 }));
 if (process.argv.includes('--update-manifest')) {
-  fs.writeFileSync(manifestPath, JSON.stringify({ version: 'ui-v1.1.8', assets: actual }, null, 2) + '\n');
+  fs.writeFileSync(manifestPath, JSON.stringify({ version: 'ui-v1.1.9', assets: actual }, null, 2) + '\n');
   console.log(`已生成 ${actual.length} 个资源的大小与 SHA-256 清单。`);
 }
 const expected = JSON.parse(fs.readFileSync(manifestPath, 'utf8')).assets;

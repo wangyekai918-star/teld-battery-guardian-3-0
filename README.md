@@ -30,10 +30,14 @@ python3 -m http.server 8080
 # 打开 http://localhost:8080/
 ```
 
-资源完整性检查：`node scripts/check-delivery.mjs`。
+资源完整性检查：安装 Node.js 18 或以上版本后，在项目根目录运行 `node scripts/check-delivery.mjs`，无需安装其他依赖。
+
+显示“通过”表示资源与清单一致、HTML/CSS 的本地引用存在、JS 语法检查通过，以及复用层的基础依赖检查通过；异常会报错并以非零状态退出。此脚本不会修改页面，也不能代替字体、动画和交互的浏览器验收。
+
+只有在主动替换或新增资源并确认无误后，才运行 `node scripts/check-delivery.mjs --update-manifest` 更新资源清单。
 
 ## 版本与部署
 
-UI 交付版本：`ui-v1.1.8`。GitHub Pages 从 `main` 根目录发布，无需构建。
+UI 交付版本：`ui-v1.1.9`。GitHub Pages 从 `main` 根目录发布，无需构建。
 
 演示内容包含原型数据、示例指标和根据截图绘制的曲线。正式接入时替换为业务数据，并保留资源内的来源与许可注释。

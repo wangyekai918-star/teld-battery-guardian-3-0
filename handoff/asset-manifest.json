@@ -1,5 +1,5 @@
 {
-  "version": "ui-v1.1.0",
+  "version": "ui-v1.1.1",
   "assets": [
     {
       "path": "assets/MingcuteLocation2Fill.svg",
@@ -43,8 +43,8 @@
     },
     {
       "path": "assets/close.svg",
-      "bytes": 407,
-      "sha256": "e39493eef442fdd728507df70a56fdff2e49646f7ce7f18d73dfe93a68994fdb"
+      "bytes": 482,
+      "sha256": "b12f41b94f5eda1c6d9088e8e5633daff734b9e22cd19e7969487a81e132203c"
     },
     {
       "path": "assets/cup-star-bold.svg",

@@ -79,12 +79,9 @@
       closeReason = reason;
       pendingClose = new Promise(resolve => { resolveClose = resolve; });
       const result = pendingClose;
-      if (doc.defaultView.matchMedia("(prefers-reduced-motion: reduce)").matches) finishClose(reason);
-      else {
-        dialog.classList.add("is-closing");
-        // 超时兜底跟随实际 CSS 时长，避免修改动画后 JS 提前移除弹窗。
-        timer = setTimeout(() => finishClose(reason), animationTime(dialog) + 80);
-      }
+      dialog.classList.add("is-closing");
+      // 超时兜底跟随实际 CSS 时长，退出动画完成后再关闭并恢复页面滚动。
+      timer = setTimeout(() => finishClose(reason), animationTime(dialog) + 80);
       return result;
     }
     function openSheet({ title = "", content, kind = "", showConfirm = false, confirmLabel = "我知道了" } = {}) {
@@ -177,5 +174,5 @@
     instances.set(root, api);
     return api;
   }
-  window.BatteryGuardianUI = Object.freeze({ create, version: "1.0.0" });
+  window.BatteryGuardianUI = Object.freeze({ create, version: "1.0.1" });
 })();

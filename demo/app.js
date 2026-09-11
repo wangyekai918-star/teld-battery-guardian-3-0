@@ -1,4 +1,4 @@
-/* 演示接线：报告渲染、示例文案与业务映射均在这里，前端不需要复用本文件。 */
+/* 演示报告：连接车辆数据、页面渲染和图表；正式项目由前端替换数据及业务逻辑。 */
 (() => {
 const { reports, diagnoses, chargeChecks, annualInspectionData, deepInspectionData, currentCurveSamples, modelComparisons, batteryFaultStatistics, batteryHealthOverviews, batteryBasicInformation } = BatteryGuardianDemoData;
 // normal、risk 沿用用户提供的原型数据；watch 的车辆、标识和指标均为虚构演示数据。

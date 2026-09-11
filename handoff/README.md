@@ -1,10 +1,10 @@
 # 前端接入说明
 
-交付版本：`ui-v1.1.5`。介绍样式、资源和交互的接入方式，演示数据与图表实现由前端替换。
+交付版本：`ui-v1.1.6`。介绍样式、资源和交互的接入方式，演示数据与图表实现由前端替换。
 
 ## 1. 需要一起带走的文件
 
-- 全部 `css/*.css`：`styles.css` → `professional-analysis.css` → `battery-basics.css`，按此顺序加载。
+- `css/styles.css`：统一包含全部报告样式、字体引用及动画，内部通过注释区分板块。
 - `assets/`：字体、图片、SVG 保留相对路径，不要只复制图片而遗漏 `.woff2` 和 `.svg`。
 - `js/ui.js`：保留抽屉、滚动锁、动画结束时机、折叠与 Tab 交互。
 - `js/chart-theme.js`：图表视觉参考，不包含任何测量数据，也不依赖 ECharts。
@@ -17,8 +17,6 @@
 
 ```html
 <link rel="stylesheet" href="css/styles.css">
-<link rel="stylesheet" href="css/professional-analysis.css">
-<link rel="stylesheet" href="css/battery-basics.css">
 <script src="js/ui.js" defer></script>
 
 <div data-battery-report id="batteryReport">
@@ -148,7 +146,7 @@ UI 层不计算安全评分、不判断诊断、不制造图表数据。前端/�
 
 ### 车辆电池静态数据
 
-模块结构为 `#batteryBasics`，样式在 `css/battery-basics.css`；包含标称容量、三项允许值，以及电池类型、标称能量和标称续航。
+模块结构为 `#batteryBasics`，样式在 `css/styles.css` 的“车辆电池静态数据”部分；包含标称容量、三项允许值，以及电池类型、标称能量和标称续航。
 
 - 白卡圆角16px，标题16px/600；内容四周12px，两行间距12px。
 - 351px白卡：左卡120×196px、连接线38×196px、右侧三卡各60px高/间距8px；窄屏时左卡可缩小，右侧至少136px，长标签完整展示。

@@ -670,11 +670,16 @@
 :where([data-battery-report]) .conclusions-summary {
   font-size: 12px;
   line-height: 20px;
-  color: #a46a18;
   white-space: nowrap;
 }
-:where([data-battery-report]) .conclusions-summary[data-level="severe"] {
-  color: #d9425c;
+:where([data-battery-report]) .conclusions-summary-item[data-level="attention"] {
+  color: #a56916;
+}
+:where([data-battery-report]) .conclusions-summary-item[data-level="severe"] {
+  color: #d4425b;
+}
+:where([data-battery-report]) .conclusions-summary-separator {
+  color: var(--muted);
 }
 :where([data-battery-report]) .conclusions-summary[hidden],
 :where([data-battery-report]) .conclusions-demo[hidden] {

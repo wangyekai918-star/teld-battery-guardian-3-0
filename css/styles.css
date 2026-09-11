@@ -2110,11 +2110,11 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 12px;
+  padding: 8px;
 }
 :where([data-battery-report]) .battery-basics-main {
   display: grid;
-  /* 351px 白卡时为 120 / 38 / 169；更窄时左卡可收缩，保留说明文字宽度。 */
+  /* 351px 白卡时为 120 / 38 / 177；更窄时左卡可收缩，保留说明文字宽度。 */
   grid-template-columns: minmax(0, 120px) 38px minmax(136px, 1fr);
   align-items: center;
 }

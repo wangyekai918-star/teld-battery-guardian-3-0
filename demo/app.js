@@ -32,10 +32,14 @@ function renderConclusions(state) {
   const severe = items.filter((item) => item.level === "severe").length,
     attention = items.filter((item) => item.level === "attention").length;
   const summary = $("conclusionsSummary");
-  const attentionCount = severe + attention;
-  summary.textContent = `${attentionCount}项需关注`;
-  summary.hidden = attentionCount === 0;
-  summary.dataset.level = severe ? "severe" : "attention";
+  const summaryItems = [
+    { level: "attention", count: attention, label: "需关注" },
+    { level: "severe", count: severe, label: "严重" },
+  ].filter(({ count }) => count > 0);
+  summary.innerHTML = summaryItems
+    .map(({ level, count, label }) => `<span class="conclusions-summary-item" data-level="${level}">${count}项${label}</span>`)
+    .join('<span class="conclusions-summary-separator">、</span>');
+  summary.hidden = summaryItems.length === 0;
   $("conclusionsDemo").hidden = !reports[state].demo;
   $("conclusionsList").innerHTML = items
     .map(

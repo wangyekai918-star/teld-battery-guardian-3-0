@@ -399,7 +399,7 @@ function renderBatteryHealth(state) {
     const missing = level === "missing";
     return `<div class="health-dimension" data-level="${level}">
       <dt>${escapeHTML(label)}</dt>
-      <dd class="health-score-reading"><strong>${missing ? "-" : score.toFixed(1)}</strong>${missing ? "" : '<span class="screenreader-only">分</span>'}</dd>
+      <dd class="health-score-reading"><strong>${missing ? "-" : score.toFixed(1)}</strong>${missing ? "" : '<span class="health-score-unit">分</span>'}</dd>
     </div>`;
   }).join("");
 }

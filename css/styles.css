@@ -1550,7 +1550,7 @@
 }
 :where([data-battery-report]) .battery-health-content {
   display: grid;
-  grid-template-columns: minmax(0, 168fr) minmax(136px, 200fr);
+  grid-template-columns: minmax(0, 168fr) minmax(154px, 200fr);
   align-items: center;
   gap: 24px;
   width: 100%;
@@ -1646,12 +1646,19 @@
   display: flex;
   align-items: baseline;
   justify-content: flex-end;
+  gap: 2px;
   margin: 0;
   color: var(--health-level-color);
   white-space: nowrap;
 }
 :where([data-battery-report]) .health-score-reading strong {
   font: 600 14px/20px BatteryGuardianDIN, sans-serif;
+}
+:where([data-battery-report]) .health-score-unit {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
 }
 :where([data-battery-report]) .health-dimension[data-level="attention"] {
   --health-level-color: #b98816;
@@ -1669,6 +1676,21 @@
   font-family: inherit;
   font-size: 14px;
   font-weight: 400;
+}
+
+/* 窄屏为右侧分数单位留出空间，圆环文字同步缩小以保持在环内。 */
+@media (max-width: 359px) {
+  :where([data-battery-report]) .health-safety-reading strong {
+    font-size: 28px;
+    line-height: 32px;
+  }
+  :where([data-battery-report]) .health-safety-reading > span {
+    font-size: 10px;
+    line-height: 16px;
+  }
+  :where([data-battery-report]) .health-safety-unit {
+    font-size: 12px;
+  }
 }
 
 /* 充电曲线：Tab 始终单行，宽度不足时横滑；坐标轴使用系统字体。 */

@@ -1657,7 +1657,7 @@
 :where([data-battery-report]) .health-score-unit {
   font-family: inherit;
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 18px;
 }
 :where([data-battery-report]) .health-dimension[data-level="attention"] {

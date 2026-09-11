@@ -1,4 +1,4 @@
-/* Figma 330:2813：标题下先展示四项基本信息，再展示估价与三项允许值。 */
+/* Figma 334:533：静态参数独立于估价、故障率和 AI 预计续航。 */
 :where([data-battery-report]) .battery-basics {
   min-width: 0;
   border-radius: 16px;
@@ -8,77 +8,74 @@
 :where([data-battery-report]) .battery-basics-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
   padding: var(--content-inset) var(--content-inset) 0;
 }
 :where([data-battery-report]) .battery-basics-head .section-heading {
   line-height: 22px;
 }
-:where([data-battery-report]) .battery-basics-fault {
-  flex: none;
-  color: rgba(13, 35, 44, .6);
-  font-size: 12px;
-  line-height: 17px;
-  white-space: nowrap;
-}
 :where([data-battery-report]) .battery-basics-content {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: var(--nested-inset);
+  gap: 12px;
+  padding: 12px;
 }
 :where([data-battery-report]) .battery-basics-main {
   display: grid;
-  grid-template-columns: minmax(0, 130fr) 38px minmax(0, 175fr);
+  /* 351px 白卡时为 120 / 38 / 169；更窄时左卡可收缩，保留说明文字宽度。 */
+  grid-template-columns: minmax(0, 120px) 38px minmax(136px, 1fr);
   align-items: center;
 }
-:where([data-battery-report]) .battery-basics-valuation {
+:where([data-battery-report]) .battery-basics-capacity {
+  position: relative;
   height: 196px;
   min-width: 0;
   border-radius: 8px;
   background: #f4f6f8;
   overflow: hidden;
 }
-:where([data-battery-report]) .battery-basics-art {
-  display: grid;
-  place-items: center;
-  height: 138px;
-}
-:where([data-battery-report]) .battery-basics-art img {
-  display: block;
-  width: calc(100% - 6px);
-  max-width: 123.411px;
-  height: 123.411px;
-  object-fit: contain;
-  mix-blend-mode: darken;
-  transform: translateY(3px);
-}
-:where([data-battery-report]) .battery-basics-estimate {
+:where([data-battery-report]) .battery-basics-capacity-reading {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  height: 58px;
+  margin: 16px 0 0;
 }
-:where([data-battery-report]) .battery-basics-price {
+:where([data-battery-report]) .battery-basics-capacity-reading dt {
+  order: 1;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+:where([data-battery-report]) .battery-basics-capacity-reading dd {
   display: flex;
   align-items: baseline;
   margin: 0;
   color: #00c86b;
-  font: 600 26px/26px BatteryGuardianDIN, sans-serif;
+  font: 600 28px/28px BatteryGuardianDIN, sans-serif;
   white-space: nowrap;
 }
-:where([data-battery-report]) .battery-basics-price-unit {
-  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+:where([data-battery-report]) .battery-basics-capacity-unit {
   font-size: 14px;
   line-height: 14px;
 }
-:where([data-battery-report]) .battery-basics-price-label {
-  margin: 0;
-  color: rgba(13, 35, 44, .8);
-  font-size: 12px;
-  line-height: 17px;
+:where([data-battery-report]) .battery-basics-art {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  transform: translateX(-50%);
+  overflow: hidden;
+}
+:where([data-battery-report]) .battery-basics-art img {
+  position: absolute;
+  top: -7.705px;
+  left: -2.025px;
+  display: block;
+  width: 123.411px;
+  height: 123.411px;
+  object-fit: cover;
+  mix-blend-mode: darken;
 }
 :where([data-battery-report]) .battery-basics-connector {
   display: block;
@@ -120,7 +117,7 @@
 }
 :where([data-battery-report]) .battery-basics-specs {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   margin: 0;
 }
@@ -132,7 +129,7 @@
   justify-content: center;
   gap: 2px;
   min-width: 0;
-  height: 54px;
+  height: 44px;
 }
 :where([data-battery-report]) .battery-basics-spec dt {
   order: 1;
@@ -149,13 +146,13 @@
   white-space: nowrap;
 }
 :where([data-battery-report]) .battery-basics-spec-unit {
-  font-size: 10px;
-  line-height: 10px;
+  font-size: 12px;
+  line-height: 12px;
 }
 :where([data-battery-report]) .battery-basics-spec .battery-basics-type {
   font-family: inherit;
   font-size: 14px;
-  line-height: 18px;
+  line-height: 14px;
 }
 :where([data-battery-report]) .battery-basics-divider {
   position: absolute;

@@ -619,31 +619,29 @@
         </section>
         <section class="battery-basics" id="batteryBasics" aria-labelledby="batteryBasicsTitle">
           <header class="battery-basics-head">
-            <h2 class="section-heading" id="batteryBasicsTitle">车辆与电池基本信息</h2>
-            <span class="battery-basics-fault">电池故障率 <span id="basicFaultRate">-</span></span>
+            <h2 class="section-heading" id="batteryBasicsTitle">车辆电池静态数据</h2>
           </header>
           <div class="battery-basics-content">
-            <dl class="battery-basics-specs">
-              <div class="battery-basics-spec"><dt>电池类型</dt><dd class="battery-basics-type" id="basicBatteryType">-</dd><img class="battery-basics-divider" src="assets/battery-spec-divider.svg" width="20" height="1" alt="" aria-hidden="true" /></div>
-              <div class="battery-basics-spec"><dt>额定容量</dt><dd><span id="basicRatedCapacity">-</span><span class="battery-basics-spec-unit" id="basicRatedCapacityUnit"></span></dd><img class="battery-basics-divider" src="assets/battery-spec-divider.svg" width="20" height="1" alt="" aria-hidden="true" /></div>
-              <div class="battery-basics-spec"><dt>标称总能量</dt><dd><span id="basicNominalEnergy">-</span><span class="battery-basics-spec-unit" id="basicNominalEnergyUnit"></span></dd><img class="battery-basics-divider" src="assets/battery-spec-divider.svg" width="20" height="1" alt="" aria-hidden="true" /></div>
-              <div class="battery-basics-spec"><dt>预计续航</dt><dd><span id="basicRange">-</span><span class="battery-basics-spec-unit" id="basicRangeUnit"></span></dd></div>
-            </dl>
             <div class="battery-basics-main">
-              <div class="battery-basics-valuation">
+              <div class="battery-basics-capacity">
+                <dl class="battery-basics-capacity-reading">
+                  <dt>标称容量</dt>
+                  <dd><span id="basicNominalCapacity">-</span><span class="battery-basics-capacity-unit" id="basicNominalCapacityUnit"></span></dd>
+                </dl>
                 <div class="battery-basics-art"><img src="assets/battery-pack.png" width="124" height="124" alt="" aria-hidden="true" /></div>
-                <div class="battery-basics-estimate">
-                  <p class="battery-basics-price"><span id="basicEstimate">-</span><span class="battery-basics-price-unit" id="basicEstimateUnit"></span></p>
-                  <p class="battery-basics-price-label">当前电池估价</p>
-                </div>
               </div>
               <img class="battery-basics-connector" src="assets/battery-parameter-connector.svg" width="38" height="196" alt="" aria-hidden="true" />
               <dl class="battery-basics-limits">
-                <div class="battery-basics-limit"><dt>单体最高允许电压</dt><dd><span id="basicCellVoltage">-</span><span class="battery-basics-limit-unit" id="basicCellVoltageUnit"></span></dd></div>
+                <div class="battery-basics-limit"><dt>单体最高允许充电电压</dt><dd><span id="basicCellVoltage">-</span><span class="battery-basics-limit-unit" id="basicCellVoltageUnit"></span></dd></div>
                 <div class="battery-basics-limit"><dt>电池最高允许温度</dt><dd><span id="basicMaxTemperature">-</span><span class="battery-basics-limit-unit" id="basicMaxTemperatureUnit"></span></dd></div>
-                <div class="battery-basics-limit"><dt>最高允许总电压</dt><dd><span id="basicTotalVoltage">-</span><span class="battery-basics-limit-unit" id="basicTotalVoltageUnit"></span></dd></div>
+                <div class="battery-basics-limit"><dt>最高允许充电总电压</dt><dd><span id="basicTotalVoltage">-</span><span class="battery-basics-limit-unit" id="basicTotalVoltageUnit"></span></dd></div>
               </dl>
             </div>
+            <dl class="battery-basics-specs">
+              <div class="battery-basics-spec"><dt>电池类型</dt><dd class="battery-basics-type" id="basicBatteryType">-</dd><img class="battery-basics-divider" src="assets/battery-spec-divider.svg" width="20" height="1" alt="" aria-hidden="true" /></div>
+              <div class="battery-basics-spec"><dt>标称能量</dt><dd><span id="basicNominalEnergy">-</span><span class="battery-basics-spec-unit" id="basicNominalEnergyUnit"></span></dd><img class="battery-basics-divider" src="assets/battery-spec-divider.svg" width="20" height="1" alt="" aria-hidden="true" /></div>
+              <div class="battery-basics-spec"><dt>标称续航</dt><dd><span id="basicNominalRange">-</span><span class="battery-basics-spec-unit" id="basicNominalRangeUnit"></span></dd></div>
+            </dl>
           </div>
         </section>
       </main>

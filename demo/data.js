@@ -463,18 +463,20 @@ const batteryHealthOverviews = {
     },
   },
 };
+// 静态数据：正常/高危参数沿用原型，watch 参数来自 Figma 334:533。
+// 标称续航为独立字段：watch 的 468 来自设计稿；normal/risk 未提供，展示 -。
 const batteryBasicInformation = {
   normal: {
-    estimate: 12758, type: "三元锂", ratedCapacity: "153.0", nominalEnergy: "52.6",
+    type: "三元锂", nominalCapacity: "153.0", nominalEnergy: "52.6", nominalRange: null,
     cellVoltage: "4.3", maxTemperature: "54.0", totalVoltage: "410.0",
   },
   watch: {
     demo: true,
-    estimate: 62758, type: "磷酸铁锂", ratedCapacity: "161.2", nominalEnergy: "55",
+    type: "磷酸铁锂", nominalCapacity: "161.2", nominalEnergy: "55", nominalRange: "468",
     cellVoltage: "3.95", maxTemperature: "60", totalVoltage: "422.8",
   },
   risk: {
-    estimate: 17174, type: "三元锂", ratedCapacity: "100.0", nominalEnergy: "60.0",
+    type: "三元锂", nominalCapacity: "100.0", nominalEnergy: "60.0", nominalRange: null,
     cellVoltage: "4.25", maxTemperature: "60.0", totalVoltage: "705.6",
   },
 };

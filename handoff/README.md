@@ -1,6 +1,6 @@
 # 前端接入说明
 
-交付版本：`ui-v1.0.0`。此包保证可复用部分与演示部分分开；接入完成后以完整演示和真机验收为准。
+交付版本：`ui-v1.1.0`。此包保证可复用部分与演示部分分开；接入完成后以完整演示和真机验收为准。
 
 ## 1. 需要一起带走的文件
 
@@ -125,6 +125,7 @@ root.addEventListener('bg:tabchange', ({ detail }) => {
 | 抽屉关闭 | 200ms，`cubic-bezier(0.4, 0, 1, 1)`；JS 按实际 CSS 动画时长兜底 |
 | 遮罩 | 纯黑 60%，200ms 淡入/淡出，无背景模糊 |
 | 抽屉形状 | 顶部圆角20px，内边距16px，无手柄；关闭图标16px，按钮28px及外扩热区 |
+| 静态数据设计稿同宽（367px页面 / 351px白卡） | [battery-static-watch-367.png](baseline/battery-static-watch-367.png) |
 | 专业分析展开 | 高度240ms，箭头220ms；保留 grid 结构和状态属性 |
 | 减少动态效果 | 系统偏好开启时按现有规则关闭动效，不能当作动画丢失 |
 
@@ -141,11 +142,33 @@ UI 层不计算安全评分、不判断诊断、不制造图表数据。前端/�
 - 车辆0/1/多条、体检单0/1/多条由业务决定入口和空态；只有多条时才展示可切换入口。
 - 演示里的缺失值、评分与图表不是正式接口定义。特别是专业分析 `trace/own` 是截图像素坐标，不能当测量数据。
 
+### 车辆电池静态数据（v1.1.0）
+
+按 [Figma 334:533](https://www.figma.com/design/DwQHp9J61uyNSxidIUhcje/?node-id=334-533) 更新，替换旧“车辆与电池基本信息”的 HTML 和 `css/battery-basics.css`。同一 `[data-battery-report]` 作用域及 `#batteryBasics` 保留；复用交互层 `js/ui.js` 的接口和版本仍为 1.0.0。
+
+- 白卡圆角16px，标题16px/600；内容四周12px，两行间距12px，按本次设计覆盖该模块旧的8px内边距。
+- 351px白卡：左卡120×196px、连接线38×196px、右侧三卡各60px高/间距8px；窄屏时左卡可缩小，右侧至少136px，长标签完整展示。
+- 左卡改为标称容量：数字28px、单位14px、绿色 `#00c86b`，标签14px/600，电池插画放在下部。
+- 底部改为三等列，高44px，列间16px，居中20px分割线；数字20px、单位12px、说明12px。普通文字使用系统字体，数值和英文单位继续使用随包 D-DIN。
+- 移除估价、故障率、旧的顶部四列；右侧文案更新为“单体最高允许充电电压”“电池最高允许温度”“最高允许充电总电压”。
+
+| 新 DOM 绑定 | 演示字段 | 单位 |
+| --- | --- | --- |
+| `basicNominalCapacity` | `nominalCapacity` | Ah |
+| `basicCellVoltage` | `cellVoltage` | V |
+| `basicMaxTemperature` | `maxTemperature` | °C |
+| `basicTotalVoltage` | `totalVoltage` | V |
+| `basicBatteryType` | `type` | 无 |
+| `basicNominalEnergy` | `nominalEnergy` | kWh |
+| `basicNominalRange` | `nominalRange` | km |
+
+数值对应的单位节点为同名 ID 加 `Unit`。缺失值显示 `-` 并隐藏单位。前端应提供独立的标称续航字段，**不要绑定报告顶部的 AI 预计续航 `reports.range`**。设计稿的468km仅用于watch示例；normal/risk原型未提供该字段，因此为null。示例容量沿用旧原型容量值，不构成后端字段语义定义；正式接入按标称容量字段映射。
+
 ## 7. 交付验收
 
 先运行 [独立验收页](index.html)，再按 [验收清单](CHECKLIST.md) 对照实际页面。样式依赖现代 WebView 的原生 `dialog`、CSS Grid、`inert` 等能力；实际最低版本和宿主导航适配由前端在项目环境验证。若更换组件库的弹窗壳，需完整复现本说明中的动画和滚动行为。
 
-使用 Git 标签 `ui-v1.0.0` 固定本次交付，`baseline/` 截图用于核对视觉。在线 main 持续更新，不能代替固定版本基准。
+使用 Git 标签 `ui-v1.1.0` 固定本次交付，`baseline/` 截图用于核对视觉。在线 main 持续更新，不能代替固定版本基准。
 
 | 393px 基准 | 截图 |
 | --- | --- |
@@ -153,6 +176,7 @@ UI 层不计算安全评分、不判断诊断、不制造图表数据。前端/�
 | 高危车辆完整报告 | [report-risk-393.png](baseline/report-risk-393.png) |
 | 切换车辆抽屉 | [drawer-vehicles-393.png](baseline/drawer-vehicles-393.png) |
 | 诊断依据抽屉 | [drawer-evidence-393.png](baseline/drawer-evidence-393.png) |
+| 静态数据设计稿同宽（367px页面 / 351px白卡） | [battery-static-watch-367.png](baseline/battery-static-watch-367.png) |
 | 专业分析展开 | [professional-expanded-393.png](baseline/professional-expanded-393.png) |
 
 每次交付前运行 `node scripts/check-delivery.mjs`。若有意替换了资源，先确认效果，再运行 `node scripts/check-delivery.mjs --update-manifest` 更新资源清单并提交。不要为绕过丢失资源的检查而直接更新清单。

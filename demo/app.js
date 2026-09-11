@@ -398,22 +398,16 @@ function renderBatteryHealth(state) {
   }).join("");
 }
 
-// 正常车来自最终原型末尾补充资料；高危车来自其报告的基本信息。
-// watch 为虚构展示车辆，参数沿用 Figma 330:2813 的示例；续航仍与报告顶部一致。
-// 按最新展示要求，电池类型统一使用“磷酸铁锂”或“三元锂”。
+// 静态参数按 Figma 334:533 展示。标称续航使用独立字段，不读取 reports.range。
 function renderBatteryBasics(state) {
-  const data = batteryBasicInformation[state] ?? {}, report = reports[state];
-  const rate = batteryFaultStatistics[state]?.rate;
-  $("basicFaultRate").textContent = rate == null ? "-" : `${rate}%`;
-  const estimate = data.estimate == null ? null : new Intl.NumberFormat("en-US").format(data.estimate);
+  const data = batteryBasicInformation[state] ?? {};
   const readings = [
-    ["basicEstimate", estimate, "元"],
+    ["basicNominalCapacity", data.nominalCapacity, "Ah"],
     ["basicCellVoltage", data.cellVoltage, "V"],
     ["basicMaxTemperature", data.maxTemperature, "°C"],
     ["basicTotalVoltage", data.totalVoltage, "V"],
-    ["basicRatedCapacity", data.ratedCapacity, "Ah"],
     ["basicNominalEnergy", data.nominalEnergy, "kWh"],
-    ["basicRange", report?.range, "km"],
+    ["basicNominalRange", data.nominalRange, "km"],
   ];
   readings.forEach(([id, value, unit]) => {
     $(id).textContent = value ?? "-";

@@ -9,6 +9,8 @@
 - [视觉与交互验收清单](handoff/CHECKLIST.md)
 - [图表视觉规范](handoff/CHARTS.md)
 
+本版已同步 [Figma 334:533](https://www.figma.com/design/DwQHp9J61uyNSxidIUhcje/?node-id=334-533)：末尾模块改为“车辆电池静态数据”，展示标称容量、三项允许值及底部三项静态参数。
+
 ## 前端从哪里开始
 
 复用 `css/`、`js/ui.js`、需要时的 `js/chart-theme.js` 和 `assets/`，参考 `index.html` 的结构。前端自己提供数据、业务规则和图表实现。不要将 `demo/` 接入正式业务。
@@ -36,6 +38,6 @@ node scripts/check-delivery.mjs
 
 ## 版本与部署
 
-UI 交付版本：`ui-v1.0.0`。GitHub Pages 从 `main` 根目录发布，无需构建；提交并推送后自动部署。交付时以版本标签和随包截图作为固定基准，在线 `main` 会随后续修改更新。
+UI 交付版本：`ui-v1.1.0`。GitHub Pages 从 `main` 根目录发布，无需构建；提交并推送后自动部署。交付时以版本标签和随包截图作为固定基准，在线 `main` 会随后续修改更新。
 
 演示内容含原型数据、虚构指标和根据截图复绘的曲线，不是业务接口、诊断算法或原始测量序列。保留资源内的来源/许可注释。

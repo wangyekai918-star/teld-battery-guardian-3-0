@@ -363,7 +363,7 @@ function renderBatteryFaults(state) {
   for (const [id, value] of Object.entries(values)) $(id).textContent = value;
 }
 
-// SOH 沿用最终原型的容量保持百分比，与右侧各项评分分别展示。
+// 左侧安全评分直接读取报告总分，与页面顶部共用数据和安全状态规则。
 // annualDecay 是年化衰减率原始值；scores.annualDecay 才是对应评分，不得相互代用。
 const healthDimensionFields = [
   { key: "annualDecay", label: "电池衰减速率得分" },
@@ -385,13 +385,15 @@ function getHealthScoreLevel(score) {
 }
 function renderBatteryHealth(state) {
   const report = reports[state], overview = batteryHealthOverviews[state];
-  const capacity = report.soh == null || report.soh === "" ? NaN : Number(report.soh);
-  const capacityMissing = !Number.isFinite(capacity) || capacity < 0 || capacity > 100;
-  $("healthCapacityValue").textContent = capacityMissing ? "-" : capacity.toFixed(1);
-  $("healthCapacityUnit").textContent = capacityMissing ? "" : "%";
-  $("healthCapacityGauge").dataset.missing = String(capacityMissing);
-  $("healthCapacityGauge").setAttribute("aria-label", capacityMissing ? "容量健康度 SOH，暂无数据" : `容量健康度 SOH ${capacity.toFixed(1)}%`);
-  $("healthCapacityProgress").setAttribute("stroke-dasharray", `${capacityMissing ? 0 : capacity} 100`);
+  const score = report.score == null || report.score === "" ? NaN : Number(report.score);
+  const scoreMissing = !Number.isFinite(score) || score < 0 || score > 100;
+  const safety = scoreMissing ? null : getSafetyStatus(report.score);
+  $("healthSafetyValue").textContent = scoreMissing ? "-" : report.score;
+  $("healthSafetyUnit").textContent = scoreMissing ? "" : "分";
+  $("healthSafetyGauge").dataset.missing = String(scoreMissing);
+  $("healthSafetyGauge").dataset.state = safety?.key ?? "missing";
+  $("healthSafetyGauge").setAttribute("aria-label", scoreMissing ? "电池安全评分，暂无数据" : `电池安全评分 ${report.score}分，${safety.label}`);
+  $("healthSafetyProgress").setAttribute("stroke-dasharray", `${scoreMissing ? 0 : score} 100`);
   $("healthDimensionsList").innerHTML = healthDimensionFields.map(({ key, label }) => {
     const score = overview.scores[key], level = getHealthScoreLevel(score);
     const missing = level === "missing";
@@ -550,7 +552,7 @@ function openSheet(type) {
   if (type === "health-info") {
     title = "电池健康概览";
     // 根据需求 4.2.4 的得分分级及原型字段整理，非原文逐字摘录。
-    body = `<p><strong>容量健康度 SOH</strong><br>以百分比表示电池容量的保持水平。SOH 是容量指标，不是评分，与右侧六项评分分别展示。</p><p><strong>六项评分</strong><br>${healthDimensionFields.map(({ label }) => escapeHTML(label)).join("、")}，满分100分。这里展示评分，实际温度、电压等检测值请查看充电体检单。</p><p><strong>分项状态</strong><br>大于90分：正常<br>80–90分：需要关注<br>60分至不足80分：轻微异常<br>0分至不足60分：严重</p><p><strong>电池衰减速率得分</strong><br>该项展示评分，年化衰减率的实际值以 %/年 表示，两者分别提供，不由 SOH 推算。</p>` +
+    body = `<p><strong>电池安全评分</strong><br>圆环展示本车的电池安全评分，与报告顶部的总分一致，满分100分。80分及以上为安全，60分至不足80分为亚安全，低于60分为高危。</p><p><strong>六项评分</strong><br>${healthDimensionFields.map(({ label }) => escapeHTML(label)).join("、")}，满分100分。这里展示评分，实际温度、电压等检测值请查看充电体检单。</p><p><strong>分项状态</strong><br>大于90分：正常<br>80–90分：需要关注<br>60分至不足80分：轻微异常<br>0分至不足60分：严重</p><p><strong>电池衰减速率得分</strong><br>该项展示评分，年化衰减率的实际值以 %/年 表示，两者分别提供。</p>` +
       (batteryHealthOverviews[activeState].demo ? '<p class="note">当前车辆的分项得分为演示数据，用于展示不同状态，不作为实际诊断依据。</p>' : "");
   }
   if (type === "professional-info") {

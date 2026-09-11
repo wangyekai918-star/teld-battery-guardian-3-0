@@ -296,8 +296,10 @@
   white-space: nowrap;
 }
 :where([data-battery-report]) .metric-heading > .icon {
+  flex: none;
   width: 16px;
   height: 16px;
+  margin-left: auto;
 }
 :where([data-battery-report]) .soh .metric-heading > .icon {
   color: #328873;

@@ -598,14 +598,14 @@
             ><img class="icon" src="assets/info-circle.svg" alt="" aria-hidden="true" /></button>
           </header>
           <div class="battery-health-content">
-            <div class="health-capacity" id="healthCapacityGauge" role="img" aria-label="容量健康度 SOH，暂无数据">
-              <svg class="health-capacity-ring" viewBox="0 0 120 120" aria-hidden="true">
-                <circle class="health-capacity-track" cx="60" cy="60" r="53" />
-                <circle class="health-capacity-progress" id="healthCapacityProgress" cx="60" cy="60" r="53" pathLength="100" stroke-dasharray="0 100" transform="rotate(-90 60 60)" />
+            <div class="health-safety" id="healthSafetyGauge" role="img" aria-label="电池安全评分，暂无数据">
+              <svg class="health-safety-ring" viewBox="0 0 120 120" aria-hidden="true">
+                <circle class="health-safety-track" cx="60" cy="60" r="53" />
+                <circle class="health-safety-progress" id="healthSafetyProgress" cx="60" cy="60" r="53" pathLength="100" stroke-dasharray="0 100" transform="rotate(-90 60 60)" />
               </svg>
-              <div class="health-capacity-reading" aria-hidden="true">
-                <div class="health-capacity-value"><strong id="healthCapacityValue">-</strong><span class="health-capacity-unit" id="healthCapacityUnit"></span></div>
-                <span>容量健康度 SOH</span>
+              <div class="health-safety-reading" aria-hidden="true">
+                <div class="health-safety-value"><strong id="healthSafetyValue">-</strong><span class="health-safety-unit" id="healthSafetyUnit"></span></div>
+                <span>电池安全评分</span>
               </div>
             </div>
             <dl class="health-dimensions-list" id="healthDimensionsList" aria-label="分项评分，满分100分"></dl>

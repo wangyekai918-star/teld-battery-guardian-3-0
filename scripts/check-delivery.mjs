@@ -17,7 +17,7 @@ const actual = assetFiles.map(file => ({
   sha256: crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex'),
 }));
 if (process.argv.includes('--update-manifest')) {
-  fs.writeFileSync(manifestPath, JSON.stringify({ version: 'ui-v1.1.0', assets: actual }, null, 2) + '\n');
+  fs.writeFileSync(manifestPath, JSON.stringify({ version: 'ui-v1.1.1', assets: actual }, null, 2) + '\n');
   console.log(`已生成 ${actual.length} 个资源的大小与 SHA-256 清单。`);
 }
 const expected = JSON.parse(fs.readFileSync(manifestPath, 'utf8')).assets;
@@ -54,4 +54,3 @@ for (const name of ['ui.js', 'chart-theme.js']) {
 const page = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 if (!page.includes('data-battery-report') || !page.includes('js/ui.js')) throw new Error('页面缺少 UI 作用域或交互入口。');
 console.log(`通过：${actual.length} 个资源一致，${references} 个本地引用有效，${scripts} 个脚本语法正确，复用层无演示数据依赖。`);
-console.log('下一步：打开 /handoff/ 运行浏览器自动检查，并按 CHECKLIST.md 进行真机验收。');

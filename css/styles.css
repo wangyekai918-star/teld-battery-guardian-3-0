@@ -1,3 +1,4 @@
+/* 通用样式与报告主要板块 */
 @font-face {
   font-family: BatteryGuardianDIN;
   src: url("../assets/din-semibold.woff2?v=b89597077004") format("woff2");
@@ -1835,4 +1836,406 @@
 
 :where([data-battery-report]) .conclusions-list {
   display: contents;
+}
+
+/* 电池健康专业分析 */
+/* 独立专业分析卡片：默认折叠，标题及数据遵循报告的字号与间距规范。 */
+:where([data-battery-report]) .professional-analysis {
+  min-width: 0;
+  border-radius: 16px;
+  background: #fff;
+  overflow: hidden;
+}
+:where([data-battery-report]) .professional-analysis-head {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: var(--content-inset);
+}
+:where([data-battery-report]) .professional-analysis-list {
+  display: grid;
+  gap: 8px;
+  padding: 0 var(--nested-inset) var(--nested-inset);
+}
+:where([data-battery-report]) .professional-item {
+  --professional-status: #009e86;
+  min-width: 0;
+  border-radius: 10px;
+  background: #f5f7f8;
+  overflow: hidden;
+}
+:where([data-battery-report]) .professional-item-heading {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+}
+:where([data-battery-report]) .professional-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  padding: 10px;
+  text-align: left;
+}
+:where([data-battery-report]) .professional-item-name {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+  font-weight: 600;
+  white-space: nowrap;
+}
+:where([data-battery-report]) .professional-item-icon {
+  display: block;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+:where([data-battery-report]) .professional-score {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--professional-status);
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+:where([data-battery-report]) .professional-score strong {
+  font: inherit;
+}
+:where([data-battery-report]) .professional-chevron {
+  display: block;
+  flex: none;
+  width: 10px;
+  height: 10px;
+  transition: transform 220ms ease;
+}
+:where([data-battery-report]) .professional-toggle[aria-expanded="true"] .professional-chevron {
+  transform: rotate(180deg);
+}
+:where([data-battery-report]) .professional-item[data-level="attention"] {
+  --professional-status: #b98816;
+}
+:where([data-battery-report]) .professional-item[data-level="mild"] {
+  --professional-status: #d5802e;
+}
+:where([data-battery-report]) .professional-item[data-level="severe"] {
+  --professional-status: #e95649;
+}
+:where([data-battery-report]) .professional-item[data-level="missing"] {
+  --professional-status: #94a1a6;
+}
+:where([data-battery-report]) .professional-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition: grid-template-rows 240ms ease, visibility 240ms;
+}
+:where([data-battery-report]) .professional-item[data-open="true"] .professional-panel {
+  grid-template-rows: 1fr;
+  visibility: visible;
+}
+:where([data-battery-report]) .professional-panel-content {
+  min-height: 0;
+  overflow: hidden;
+}
+:where([data-battery-report]) .professional-panel-body {
+  padding: 0 8px 8px;
+}
+:where([data-battery-report]) .professional-statistics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0 0 8px;
+}
+:where([data-battery-report]) .professional-statistics > div {
+  min-width: 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #fff;
+}
+:where([data-battery-report]) .professional-statistics dt {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 18px;
+  white-space: nowrap;
+}
+:where([data-battery-report]) .professional-statistics dd {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  margin: 2px 0 0;
+  font: 600 20px/24px BatteryGuardianDIN, sans-serif;
+  color: var(--ink);
+}
+:where([data-battery-report]) .professional-statistics dd span {
+  font: 600 14px/18px BatteryGuardianDIN, sans-serif;
+}
+:where([data-battery-report]) .professional-statistics > div:last-child dd {
+  color: #009e86;
+}
+:where([data-battery-report]) .professional-chart {
+  margin: 0;
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+}
+:where([data-battery-report]) .professional-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 8px 10px 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 16px;
+}
+:where([data-battery-report]) .professional-legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+:where([data-battery-report]) .professional-legend-own {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #f27d86;
+}
+:where([data-battery-report]) .professional-legend-peer {
+  position: relative;
+  width: 14px;
+  height: 2px;
+  background: #00bda1;
+}
+:where([data-battery-report]) .professional-legend-peer::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  border: 1.5px solid #00bda1;
+  border-radius: 50%;
+  background: #fff;
+  transform: translate(-50%, -50%);
+}
+:where([data-battery-report]) .professional-legend-mean {
+  display: flex;
+  flex: none;
+  width: 24px;
+  height: 2px;
+}
+:where([data-battery-report]) .professional-legend-mean::before,
+:where([data-battery-report]) .professional-legend-mean::after {
+  content: "";
+  flex: 1;
+  height: 100%;
+  background: repeating-linear-gradient(90deg, #f27d86 0 3px, transparent 3px 6px);
+}
+:where([data-battery-report]) .professional-legend-mean::after {
+  background: repeating-linear-gradient(90deg, #00bda1 0 3px, transparent 3px 6px);
+}
+:where([data-battery-report]) .professional-chart svg {
+  display: block;
+  width: 100%;
+  height: 168px;
+}
+:where([data-battery-report]) .professional-chart svg text {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  fill: #94a1a6;
+}
+:where([data-battery-report]) .professional-empty {
+  margin: 0;
+  padding: 18px 0 24px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 12px;
+  line-height: 18px;
+}
+@media (max-width: 360px) {
+  :where([data-battery-report]) .professional-statistics > div {
+    padding: 8px 6px;
+  }
+  :where([data-battery-report]) .professional-statistics dt {
+    font-size: 10px;
+  }
+}
+
+/* 车辆电池静态数据 */
+/* Figma 334:533：静态参数独立于估价、故障率和 AI 预计续航。 */
+:where([data-battery-report]) .battery-basics {
+  min-width: 0;
+  border-radius: 16px;
+  background: #fff;
+  overflow: hidden;
+}
+:where([data-battery-report]) .battery-basics-head {
+  display: flex;
+  align-items: center;
+  padding: var(--content-inset) var(--content-inset) 0;
+}
+:where([data-battery-report]) .battery-basics-head .section-heading {
+  line-height: 22px;
+}
+:where([data-battery-report]) .battery-basics-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+}
+:where([data-battery-report]) .battery-basics-main {
+  display: grid;
+  /* 351px 白卡时为 120 / 38 / 169；更窄时左卡可收缩，保留说明文字宽度。 */
+  grid-template-columns: minmax(0, 120px) 38px minmax(136px, 1fr);
+  align-items: center;
+}
+:where([data-battery-report]) .battery-basics-capacity {
+  position: relative;
+  height: 196px;
+  min-width: 0;
+  border-radius: 8px;
+  background: #f4f6f8;
+  overflow: hidden;
+}
+:where([data-battery-report]) .battery-basics-capacity-reading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin: 16px 0 0;
+}
+:where([data-battery-report]) .battery-basics-capacity-reading dt {
+  order: 1;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+:where([data-battery-report]) .battery-basics-capacity-reading dd {
+  display: flex;
+  align-items: baseline;
+  margin: 0;
+  color: #00c86b;
+  font: 600 28px/28px BatteryGuardianDIN, sans-serif;
+  white-space: nowrap;
+}
+:where([data-battery-report]) .battery-basics-capacity-unit {
+  font-size: 14px;
+  line-height: 14px;
+}
+:where([data-battery-report]) .battery-basics-art {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  transform: translateX(-50%);
+  overflow: hidden;
+}
+:where([data-battery-report]) .battery-basics-art img {
+  position: absolute;
+  top: -7.705px;
+  left: -2.025px;
+  display: block;
+  width: 123.411px;
+  height: 123.411px;
+  object-fit: cover;
+  mix-blend-mode: darken;
+}
+:where([data-battery-report]) .battery-basics-connector {
+  display: block;
+  width: 38px;
+  height: 196px;
+}
+:where([data-battery-report]) .battery-basics-limits {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+}
+:where([data-battery-report]) .battery-basics-limit {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  height: 60px;
+  padding: 8px;
+  border-radius: 8px;
+  background: #f4f6f8;
+}
+:where([data-battery-report]) .battery-basics-limit dt {
+  order: 1;
+  font-size: 12px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+:where([data-battery-report]) .battery-basics-limit dd {
+  display: flex;
+  align-items: baseline;
+  margin: 0;
+  font: 600 24px/24px BatteryGuardianDIN, sans-serif;
+  white-space: nowrap;
+}
+:where([data-battery-report]) .battery-basics-limit-unit {
+  font-size: 14px;
+  line-height: 14px;
+}
+:where([data-battery-report]) .battery-basics-specs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+}
+:where([data-battery-report]) .battery-basics-spec {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+  height: 44px;
+}
+:where([data-battery-report]) .battery-basics-spec dt {
+  order: 1;
+  color: rgba(13, 35, 44, .6);
+  font-size: 12px;
+  line-height: 17px;
+  white-space: nowrap;
+}
+:where([data-battery-report]) .battery-basics-spec dd {
+  display: flex;
+  align-items: baseline;
+  margin: 0;
+  font: 600 20px/20px BatteryGuardianDIN, sans-serif;
+  white-space: nowrap;
+}
+:where([data-battery-report]) .battery-basics-spec-unit {
+  font-size: 12px;
+  line-height: 12px;
+}
+:where([data-battery-report]) .battery-basics-spec .battery-basics-type {
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 14px;
+}
+:where([data-battery-report]) .battery-basics-divider {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 8px);
+  width: 20px;
+  height: 1px;
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+:where([data-battery-report]) .battery-basics [data-missing="true"] {
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
 }

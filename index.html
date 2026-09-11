@@ -8,13 +8,19 @@
     />
     <meta name="theme-color" content="#eaf2f7" />
     <title>电池卫士 · 电池报告</title>
+    <link rel="stylesheet" href="demo/page.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="css/professional-analysis.css" />
     <link rel="stylesheet" href="css/battery-basics.css" />
-    <script src="js/professional-analysis.js" defer></script>
-    <script src="js/app.js" defer></script>
+    <script src="js/ui.js" defer></script>
+    <script src="js/chart-theme.js" defer></script>
+    <script src="demo/data.js" defer></script>
+    <script src="demo/charge-curve.js" defer></script>
+    <script src="demo/professional-analysis.js" defer></script>
+    <script src="demo/app.js" defer></script>
   </head>
   <body>
+    <div data-battery-report>
     <!-- App 提供原生导航；H5 从报告头图开始。 -->
     <div class="page-shell" id="app">
       <header class="brand-banner" aria-label="电池卫士检测报告">
@@ -405,7 +411,7 @@
             <section class="charge-curves" aria-label="充电过程曲线">
               <div
                 class="curve-tabs"
-                id="curveTabs"
+                id="curveTabs" data-bg-tabs
                 role="tablist"
                 aria-label="选择充电曲线"
               >
@@ -414,7 +420,7 @@
                   type="button"
                   role="tab"
                   id="curveTab-current"
-                  data-curve="current"
+                  data-curve="current" data-bg-tab="current"
                   aria-selected="true"
                   aria-controls="curvePanel"
                   >电流曲线</button
@@ -424,7 +430,7 @@
                   type="button"
                   role="tab"
                   id="curveTab-voltage"
-                  data-curve="voltage"
+                  data-curve="voltage" data-bg-tab="voltage"
                   aria-selected="false"
                   aria-controls="curvePanel"
                   tabindex="-1"
@@ -435,7 +441,7 @@
                   type="button"
                   role="tab"
                   id="curveTab-temperature"
-                  data-curve="temperature"
+                  data-curve="temperature" data-bg-tab="temperature"
                   aria-selected="false"
                   aria-controls="curvePanel"
                   tabindex="-1"
@@ -446,7 +452,7 @@
                   type="button"
                   role="tab"
                   id="curveTab-soc"
-                  data-curve="soc"
+                  data-curve="soc" data-bg-tab="soc"
                   aria-selected="false"
                   aria-controls="curvePanel"
                   tabindex="-1"
@@ -457,7 +463,7 @@
                   type="button"
                   role="tab"
                   id="curveTab-power"
-                  data-curve="power"
+                  data-curve="power" data-bg-tab="power"
                   aria-selected="false"
                   aria-controls="curvePanel"
                   tabindex="-1"
@@ -468,7 +474,7 @@
                   type="button"
                   role="tab"
                   id="curveTab-cellVoltage"
-                  data-curve="cellVoltage"
+                  data-curve="cellVoltage" data-bg-tab="cellVoltage"
                   aria-selected="false"
                   aria-controls="curvePanel"
                   tabindex="-1"
@@ -530,13 +536,13 @@
                   <tr>
                     <td colspan="3">
                       <button
-                        class="model-comparison-toggle"
+                        class="model-comparison-toggle" data-bg-disclosure="hidden" data-bg-label-expanded="收起" data-bg-label-collapsed="查看全部11项"
                         id="modelComparisonToggle"
                         type="button"
                         aria-expanded="false"
                         aria-controls="modelComparisonMore"
                       >
-                        <span id="modelComparisonToggleText">查看全部11项</span>
+                        <span id="modelComparisonToggleText" data-bg-disclosure-label>查看全部11项</span>
                         <img src="assets/alt-arrow-right.svg" alt="" aria-hidden="true" />
                       </button>
                     </td>
@@ -642,18 +648,18 @@
         </section>
       </main>
     </div>
-    <dialog class="sheet" id="detailSheet" aria-labelledby="sheetTitle"
+    <dialog class="sheet" id="detailSheet" data-bg-sheet aria-labelledby="sheetTitle"
       ><div class="sheet-head"
-        ><h2 id="sheetTitle"></h2
-        ><button class="sheet-close" type="button" aria-label="关闭"
+        ><h2 id="sheetTitle" data-bg-sheet-title></h2
+        ><button class="sheet-close" data-bg-sheet-close type="button" aria-label="关闭"
           ><img
             class="icon"
             src="assets/close.svg"
             alt=""
             aria-hidden="true" /></button></div
-      ><div class="sheet-body" id="sheetBody"></div
-      ><div class="sheet-actions" id="sheetActions" hidden
-        ><button class="evidence-confirm" type="button">我知道了</button></div
+      ><div class="sheet-body" id="sheetBody" data-bg-sheet-body></div
+      ><div class="sheet-actions" id="sheetActions" data-bg-sheet-actions hidden
+        ><button class="evidence-confirm" data-bg-sheet-confirm type="button">我知道了</button></div
       ></dialog
     >
     <div
@@ -661,5 +667,6 @@
       id="stateAnnouncement"
       aria-live="polite"
     ></div>
+    </div>
   </body>
 </html>

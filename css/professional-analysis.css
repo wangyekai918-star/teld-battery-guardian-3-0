@@ -1,34 +1,34 @@
 /* 独立专业分析卡片：默认折叠，标题及数据遵循报告的字号与间距规范。 */
-.professional-analysis {
+:where([data-battery-report]) .professional-analysis {
   min-width: 0;
   border-radius: 16px;
   background: #fff;
   overflow: hidden;
 }
-.professional-analysis-head {
+:where([data-battery-report]) .professional-analysis-head {
   display: flex;
   align-items: center;
   gap: 2px;
   padding: var(--content-inset);
 }
-.professional-analysis-list {
+:where([data-battery-report]) .professional-analysis-list {
   display: grid;
   gap: 8px;
   padding: 0 var(--nested-inset) var(--nested-inset);
 }
-.professional-item {
+:where([data-battery-report]) .professional-item {
   --professional-status: #009e86;
   min-width: 0;
   border-radius: 10px;
   background: #f5f7f8;
   overflow: hidden;
 }
-.professional-item-heading {
+:where([data-battery-report]) .professional-item-heading {
   margin: 0;
   font-size: 14px;
   line-height: 20px;
 }
-.professional-toggle {
+:where([data-battery-report]) .professional-toggle {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -37,7 +37,7 @@
   padding: 10px;
   text-align: left;
 }
-.professional-item-name {
+:where([data-battery-report]) .professional-item-name {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -46,14 +46,14 @@
   font-weight: 600;
   white-space: nowrap;
 }
-.professional-item-icon {
+:where([data-battery-report]) .professional-item-icon {
   display: block;
   flex: none;
   width: 22px;
   height: 22px;
   object-fit: contain;
 }
-.professional-score {
+:where([data-battery-report]) .professional-score {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -63,87 +63,87 @@
   font-weight: 600;
   white-space: nowrap;
 }
-.professional-score strong {
+:where([data-battery-report]) .professional-score strong {
   font: inherit;
 }
-.professional-chevron {
+:where([data-battery-report]) .professional-chevron {
   display: block;
   flex: none;
   width: 10px;
   height: 10px;
   transition: transform 220ms ease;
 }
-.professional-toggle[aria-expanded="true"] .professional-chevron {
+:where([data-battery-report]) .professional-toggle[aria-expanded="true"] .professional-chevron {
   transform: rotate(180deg);
 }
-.professional-item[data-level="attention"] {
+:where([data-battery-report]) .professional-item[data-level="attention"] {
   --professional-status: #b98816;
 }
-.professional-item[data-level="mild"] {
+:where([data-battery-report]) .professional-item[data-level="mild"] {
   --professional-status: #d5802e;
 }
-.professional-item[data-level="severe"] {
+:where([data-battery-report]) .professional-item[data-level="severe"] {
   --professional-status: #e95649;
 }
-.professional-item[data-level="missing"] {
+:where([data-battery-report]) .professional-item[data-level="missing"] {
   --professional-status: #94a1a6;
 }
-.professional-panel {
+:where([data-battery-report]) .professional-panel {
   display: grid;
   grid-template-rows: 0fr;
   visibility: hidden;
   transition: grid-template-rows 240ms ease, visibility 240ms;
 }
-.professional-item[data-open="true"] .professional-panel {
+:where([data-battery-report]) .professional-item[data-open="true"] .professional-panel {
   grid-template-rows: 1fr;
   visibility: visible;
 }
-.professional-panel-content {
+:where([data-battery-report]) .professional-panel-content {
   min-height: 0;
   overflow: hidden;
 }
-.professional-panel-body {
+:where([data-battery-report]) .professional-panel-body {
   padding: 0 8px 8px;
 }
-.professional-statistics {
+:where([data-battery-report]) .professional-statistics {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
   margin: 0 0 8px;
 }
-.professional-statistics > div {
+:where([data-battery-report]) .professional-statistics > div {
   min-width: 0;
   padding: 8px 10px;
   border-radius: 8px;
   background: #fff;
 }
-.professional-statistics dt {
+:where([data-battery-report]) .professional-statistics dt {
   color: var(--muted);
   font-size: 11px;
   line-height: 18px;
   white-space: nowrap;
 }
-.professional-statistics dd {
+:where([data-battery-report]) .professional-statistics dd {
   display: flex;
   align-items: baseline;
   gap: 2px;
   margin: 2px 0 0;
-  font: 600 20px/24px DIN, sans-serif;
+  font: 600 20px/24px BatteryGuardianDIN, sans-serif;
   color: var(--ink);
 }
-.professional-statistics dd span {
-  font: 600 14px/18px DIN, sans-serif;
+:where([data-battery-report]) .professional-statistics dd span {
+  font: 600 14px/18px BatteryGuardianDIN, sans-serif;
 }
-.professional-statistics > div:last-child dd {
+:where([data-battery-report]) .professional-statistics > div:last-child dd {
   color: #009e86;
 }
-.professional-chart {
+:where([data-battery-report]) .professional-chart {
   margin: 0;
   border-radius: 8px;
   background: #fff;
   overflow: hidden;
 }
-.professional-legend {
+:where([data-battery-report]) .professional-legend {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -153,25 +153,25 @@
   font-size: 11px;
   line-height: 16px;
 }
-.professional-legend > span {
+:where([data-battery-report]) .professional-legend > span {
   display: inline-flex;
   align-items: center;
   gap: 4px;
   white-space: nowrap;
 }
-.professional-legend-own {
+:where([data-battery-report]) .professional-legend-own {
   width: 5px;
   height: 5px;
   border-radius: 50%;
   background: #f27d86;
 }
-.professional-legend-peer {
+:where([data-battery-report]) .professional-legend-peer {
   position: relative;
   width: 14px;
   height: 2px;
   background: #00bda1;
 }
-.professional-legend-peer::after {
+:where([data-battery-report]) .professional-legend-peer::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -183,34 +183,34 @@
   background: #fff;
   transform: translate(-50%, -50%);
 }
-.professional-legend-mean {
+:where([data-battery-report]) .professional-legend-mean {
   display: flex;
   flex: none;
   width: 24px;
   height: 2px;
 }
-.professional-legend-mean::before,
-.professional-legend-mean::after {
+:where([data-battery-report]) .professional-legend-mean::before,
+:where([data-battery-report]) .professional-legend-mean::after {
   content: "";
   flex: 1;
   height: 100%;
   background: repeating-linear-gradient(90deg, #f27d86 0 3px, transparent 3px 6px);
 }
-.professional-legend-mean::after {
+:where([data-battery-report]) .professional-legend-mean::after {
   background: repeating-linear-gradient(90deg, #00bda1 0 3px, transparent 3px 6px);
 }
-.professional-chart svg {
+:where([data-battery-report]) .professional-chart svg {
   display: block;
   width: 100%;
   height: 168px;
 }
-.professional-chart svg text {
+:where([data-battery-report]) .professional-chart svg text {
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 10px;
   font-weight: 400;
   fill: #94a1a6;
 }
-.professional-empty {
+:where([data-battery-report]) .professional-empty {
   margin: 0;
   padding: 18px 0 24px;
   color: var(--muted);
@@ -219,16 +219,16 @@
   line-height: 18px;
 }
 @media (max-width: 360px) {
-  .professional-statistics > div {
+  :where([data-battery-report]) .professional-statistics > div {
     padding: 8px 6px;
   }
-  .professional-statistics dt {
+  :where([data-battery-report]) .professional-statistics dt {
     font-size: 10px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .professional-panel,
-  .professional-chevron {
+  :where([data-battery-report]) .professional-panel,
+:where([data-battery-report]) .professional-chevron {
     transition: none;
   }
 }

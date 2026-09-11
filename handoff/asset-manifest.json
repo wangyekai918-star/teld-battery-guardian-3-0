@@ -1,0 +1,155 @@
+{
+  "version": "ui-v1.0.0",
+  "assets": [
+    {
+      "path": "assets/MingcuteLocation2Fill.svg",
+      "bytes": 1428,
+      "sha256": "ed798b15cd52a5c0d4c0b451aae73b43700930d93c60b9962930065bd0d4ee77"
+    },
+    {
+      "path": "assets/alt-arrow-right.svg",
+      "bytes": 387,
+      "sha256": "e5b4c260fa294eeab1b20786542d8d9379661f5259d6fccaf2162f365ecc189f"
+    },
+    {
+      "path": "assets/battery-charge.svg",
+      "bytes": 896,
+      "sha256": "9931bb5814efdc934ebe413db2c32eabf50fd4cbeadbae2faa5e620901f470d3"
+    },
+    {
+      "path": "assets/battery-pack.png",
+      "bytes": 692632,
+      "sha256": "577de23fabb6176a640eb99b5ac535637c197251b881552308d84f922e979510"
+    },
+    {
+      "path": "assets/battery-parameter-connector.svg",
+      "bytes": 839,
+      "sha256": "cbc74435c968ddbbcfa56b74c004257fa5eba6ee8a7256d7a25ca70a4a4362e6"
+    },
+    {
+      "path": "assets/battery-spec-divider.svg",
+      "bytes": 257,
+      "sha256": "42d80f906d905c3cfa636df603e26fc8b02bd191495b7f4dea9106e2b56a7175"
+    },
+    {
+      "path": "assets/check-circle-filled.svg",
+      "bytes": 769,
+      "sha256": "9d4ec1794ab34fb58a62b5f71519d4bf2baf21a46689622ff34eda7db6c82801"
+    },
+    {
+      "path": "assets/clipboard-check-bold.svg",
+      "bytes": 1262,
+      "sha256": "13a06b28234fffb2e8211dd2c8c04e2275740a98f07b020977e66bf4ffdd64e2"
+    },
+    {
+      "path": "assets/close.svg",
+      "bytes": 407,
+      "sha256": "e39493eef442fdd728507df70a56fdff2e49646f7ce7f18d73dfe93a68994fdb"
+    },
+    {
+      "path": "assets/cup-star-bold.svg",
+      "bytes": 2773,
+      "sha256": "03cab129afb4d255f2cab136abe5c6e3058da249658fdd298aa00c0412105213"
+    },
+    {
+      "path": "assets/din-semibold.woff2",
+      "bytes": 17700,
+      "sha256": "b895970770047d710162b2f5260245b2af335e16db7f4c185022df24daa539cd"
+    },
+    {
+      "path": "assets/info-circle.svg",
+      "bytes": 458,
+      "sha256": "c4dbfa1da51a6b854a62845ef7a59b206826c759e093b988a2949ff5f3910c39"
+    },
+    {
+      "path": "assets/professional-maximum-temperature.png",
+      "bytes": 6354,
+      "sha256": "922ce905303bb916ff594b21d9d4e4d3ac900444be97edc1473fb0c5b03dbc46"
+    },
+    {
+      "path": "assets/professional-soc.png",
+      "bytes": 6908,
+      "sha256": "a94371ce6ce833c5d3c8dffee6ff39905e66b29f89db780effa67852ecd9dfe7"
+    },
+    {
+      "path": "assets/professional-temperature.png",
+      "bytes": 6285,
+      "sha256": "650b1908b9b9cb7e2add4b1c5418a4e5d328389727bfe4cab06b793269eb7315"
+    },
+    {
+      "path": "assets/professional-voltage.png",
+      "bytes": 6609,
+      "sha256": "3c48a8dfe8b4d8e7b9479585d7543a2c0731e134c39d1dc645326081b4ce4023"
+    },
+    {
+      "path": "assets/ranking-trophy.webp",
+      "bytes": 15832,
+      "sha256": "e2e32fbcb41371b6d15b96e1a46f9db60ba0d5bc714a6438ab21a4e1e0dadf55"
+    },
+    {
+      "path": "assets/report-background.jpg",
+      "bytes": 69690,
+      "sha256": "149f6befd994be791aaf599006633ebb68397d9fa990ecb8f621ddf6197998de"
+    },
+    {
+      "path": "assets/report-heading.png",
+      "bytes": 10874,
+      "sha256": "edcf1eb4839782f7b6fef263b9a7abfc0b7a272d6b450039cc26cf648cc93849"
+    },
+    {
+      "path": "assets/routing-2.svg",
+      "bytes": 1225,
+      "sha256": "a4d5349668202cc25e0f9b4cab1518c8c41c85b83fae54c5d218d50b14f6028c"
+    },
+    {
+      "path": "assets/search-fill.svg",
+      "bytes": 460,
+      "sha256": "b1454b5a7be99c0dd3fcfd78d8d587453a2c22cb15c24df3b313f62bb7f6b813"
+    },
+    {
+      "path": "assets/shield-check-bold.svg",
+      "bytes": 1134,
+      "sha256": "6e98c03fbb335f5a07ec73c5c23e36b668c60991524ab3fd29f7973f3c458884"
+    },
+    {
+      "path": "assets/shield-warning-bold.svg",
+      "bytes": 1043,
+      "sha256": "c1e18ac4beca9ac1d08f03cb5e6f8228c82e6701b203bd90f298667c79ec9808"
+    },
+    {
+      "path": "assets/shield-warning-watch.svg",
+      "bytes": 1043,
+      "sha256": "3e3680b813b54ba2fa032f0e29d36f840406b24c587a5a08f420ee2383b26563"
+    },
+    {
+      "path": "assets/status-attention.svg",
+      "bytes": 1342,
+      "sha256": "a9d42a97a9a2414e97a37fd3a5b452b2865f0edc87795f9f0c894373699ca655"
+    },
+    {
+      "path": "assets/status-good.svg",
+      "bytes": 1312,
+      "sha256": "b856927f24e16ce4d91b2eff29d29697489f4a0cf7ce13d06e7a193518405f65"
+    },
+    {
+      "path": "assets/status-severe.svg",
+      "bytes": 1329,
+      "sha256": "d16c3db852d4447d93b00f81baa357f05f1b99d06adccbf8c5c88a4541969ee7"
+    },
+    {
+      "path": "assets/update-time.svg",
+      "bytes": 1281,
+      "sha256": "e51fabdb01e4b10e16d966105bcdaf63ff13a939e5230626fbb75ae3a968b6e8"
+    },
+    {
+      "path": "assets/vehicle-preview.png",
+      "bytes": 680380,
+      "sha256": "b18b8d0194e93f72cfe3f6c8103dc2afe9cbaa3bf7c2124b805877d761419654"
+    },
+    {
+      "path": "assets/vehicle-switch-arrow.svg",
+      "bytes": 424,
+      "sha256": "a443506cdc1644b634be7486dc1fa7edda071154a9b409ef2337e0bd11f32d34"
+    }
+  ]
+}

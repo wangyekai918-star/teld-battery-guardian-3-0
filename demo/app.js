@@ -1,175 +1,10 @@
+/* 演示接线：报告渲染、示例文案与业务映射均在这里，前端不需要复用本文件。 */
+(() => {
+const { reports, diagnoses, chargeChecks, annualInspectionData, deepInspectionData, currentCurveSamples, modelComparisons, batteryFaultStatistics, batteryHealthOverviews, batteryBasicInformation } = BatteryGuardianDemoData;
 // normal、risk 沿用用户提供的原型数据；watch 的车辆、标识和指标均为虚构演示数据。
-const reports = {
-  normal: {
-    vehicle: "威马 EX5 400km",
-    plate: "琼BD2733",
-    date: "2026.08.03",
-    completed: "2026-08-03 16:10",
-    report: "202608030500516531",
-    score: "92.8",
-    soh: "78.0",
-    sohGrade: "正常",
-    range: "312",
-  },
-  watch: {
-    vehicle: "比亚迪 元 PLUS 510km",
-    plate: "鲁BD12345",
-    date: "2026.08.18",
-    completed: "2026-08-18 10:30",
-    report: "DEMO202608180001",
-    score: "72.0",
-    soh: "86.0",
-    sohGrade: "良好",
-    range: "439",
-    demo: true,
-  },
-  risk: {
-    vehicle: "比亚迪 e5 450 400km",
-    plate: "粤AD18715",
-    date: "2026.08.17",
-    completed: "2026-08-17 00:43",
-    report: "202608170800012737",
-    score: "44.4",
-    soh: "94.8",
-    sohGrade: "良好",
-    range: "380",
-  },
-};
 // 结论来源：正式需求 4.2.4 + 用户交付原型中的本车数据；短文案经过面向用户的整理。
 // 安全总分的三档映射与单项指标严重程度独立。SOC / 电压指标均不足 60 分，按需求标为严重。
 // 每条结论关联一条依据；最多 3 条结论，连同完整处置建议最多 4 条依据。
-const diagnoses = {
-  normal: {
-    items: [
-      {
-        id: "voltage",
-        dimension: "safety",
-        level: "attention",
-        title: "本次电压极差偏大",
-        data: [
-          { label: "本次压差", value: "0.58", unit: "V" },
-          { label: "参考", value: "≤0.10", unit: "V" },
-        ],
-        advice: "安排电池均衡，重点检查单体电压偏低的模组。",
-        evidenceTitle: "电压极差偏大的依据",
-        evidence:
-          "本次压差0.58V；近30天均值0.47V、最高0.58V，超过≤0.10V参考值。同城同车型均值0.44V，原报告列为关注项，需结合均衡后结果观察变化。",
-      },
-      {
-        id: "safety",
-        dimension: "safety",
-        level: "good",
-        title: "本次整体安全状况较好",
-        data: [
-          { label: "最高温度", value: "35.0", unit: "℃" },
-          { label: "历史故障率", value: "0", unit: "%" },
-        ],
-        advice: "保持良好的充电习惯，继续关注电压极差变化。",
-        evidenceTitle: "整体安全状况的依据",
-        evidence:
-          "安全评分92.8分，处于安全区间。本次最高温度35.0℃，低于54.0℃参考值；报告覆盖的10笔充电订单无故障记录。综合评分较好，本次压差关注项仍需处理。",
-      },
-      {
-        id: "health",
-        dimension: "health",
-        level: "good",
-        title: "电池容量保持正常",
-        data: [
-          { label: "容量健康度", value: "78.0", unit: "%" },
-          { label: "同车型", value: "86.94", unit: "%" },
-        ],
-        advice: "持续观察容量和实际续航变化，留意后续衰减趋势。",
-        evidenceTitle: "容量健康状态的依据",
-        evidence:
-          "本车SOH为78.0%，报告容量状态为正常；同城同车型均值86.94%，本车低8.94个百分点。未提供年衰减率，暂不能判断衰减速度；容量状态与安全状态分别评估。",
-      },
-    ],
-    disposition:
-      "安排一次电池均衡，由专业人员重点检查单体电压偏低的电池模组。均衡后继续观察电压极差、容量健康度和实际续航的变化，结合后续检测报告复查。日常保持良好的充电习惯。",
-  },
-  watch: {
-    items: [
-      {
-        id: "safety",
-        dimension: "safety",
-        level: "attention",
-        title: "电池安全状况需持续观察",
-        data: [
-          { label: "安全评分", value: "72.0", unit: "分" },
-          { label: "安全区间", value: "≥80", unit: "分" },
-        ],
-        advice: "持续观察后续评分变化，结合具体异常提示检查。",
-        evidenceTitle: "安全评分的依据",
-        evidence:
-          "演示安全评分为72.0分，按60分至不足80分的规则归为亚安全。当前没有单项检测、历史趋势及同车型对比数据，不能仅凭总分判断具体异常或维修项目。",
-      },
-      {
-        id: "health",
-        dimension: "health",
-        level: "good",
-        title: "电池容量保持良好",
-        data: [
-          { label: "容量健康度", value: "86.0", unit: "%" },
-          { label: "预计续航", value: "439", unit: "km" },
-        ],
-        advice: "持续关注容量和实际续航，结合后续报告观察变化。",
-        evidenceTitle: "容量健康状态的依据",
-        evidence:
-          "演示数据中，SOH为86.0%，容量状态为良好；预计续航439km为算法估算。暂无年衰减率、历史趋势及同车型对比数据，不能据此判断衰减速度或具体健康异常。",
-      },
-    ],
-    disposition:
-      "持续关注后续检测报告中的安全评分、容量健康度与实际续航变化。如出现具体异常提示，再结合对应指标和诊断依据进一步检查。当前为演示报告，未提供支持具体维修项目的检测数据。",
-  },
-  risk: {
-    items: [
-      {
-        id: "soc",
-        dimension: "safety",
-        level: "severe",
-        title: "SOC一致性异常",
-        data: [
-          { label: "一致性得分", value: "44.4", unit: "分" },
-          { label: "安全评分", value: "44.4", unit: "分" },
-        ],
-        advice: "前往4S店全面检查，关注电量显示与实际续航变化。",
-        evidenceTitle: "SOC一致性异常的依据",
-        evidence:
-          "SOC一致性得分44.4分，低于60分，按指标分级属于严重异常。原报告也判定该项异常，需检查电量显示与续航变化；趋势和同车型数值未注明单位，暂不作数值对比。",
-      },
-      {
-        id: "voltage",
-        dimension: "safety",
-        level: "severe",
-        title: "电压一致性异常",
-        data: [
-          { label: "本次压差", value: "0.34", unit: "V" },
-          { label: "参考", value: "≤0.10", unit: "V" },
-        ],
-        advice: "进行电池均衡，重点检查单体电压偏低的模组。",
-        evidenceTitle: "电压一致性异常的依据",
-        evidence:
-          "本次压差0.34V，近30天均值0.30V、最高0.38V，超过≤0.10V参考值；同城同车型均值0.05V。该项58.0分，属严重异常，可能影响电池组一致性。",
-      },
-      {
-        id: "health",
-        dimension: "health",
-        level: "good",
-        title: "电池容量保持良好",
-        data: [
-          { label: "容量健康度", value: "94.8", unit: "%" },
-          { label: "同车型", value: "91.6", unit: "%" },
-        ],
-        advice: "持续观察容量和续航，优先处理本次安全异常。",
-        evidenceTitle: "容量健康状态的依据",
-        evidence:
-          "本车SOH为94.8%，报告容量状态为良好；同城同车型均值91.6%。原报告未提供年衰减率，暂不能判断衰减速度。容量保持良好，仍需处理SOC与电压一致性异常。",
-      },
-    ],
-    disposition:
-      "前往4S店对电池进行全面检查，并由专业人员结合检测结果进行电池均衡，重点排查单体电压偏低的模组。处理后持续观察SOC显示、实际续航和电压极差的变化。容量健康度良好，仍应优先处理安全异常。",
-  },
-};
 const conclusionLevels = {
   severe: { label: "严重", asset: "assets/status-severe.svg", order: 0 },
   attention: { label: "关注", asset: "assets/status-attention.svg", order: 1 },
@@ -245,90 +80,6 @@ function getSafetyStatus(score) {
 // 日期使用体检结束时间。SOC 跨度由结束 SOC 减开始 SOC 得到，不作数据有效性分级。
 // 体检单号均为原型展示编号，首条使用用户提供的示例格式。
 // normal 首条虚拟充电量 40.2 度、时长 68 分钟，起止时间保持一致；risk 首条沿用交付报告。
-const chargeChecks = {
-  normal: [
-    {
-      id: "normal-20260803",
-      startedAt: "2026-08-03 15:02:40",
-      endedAt: "2026-08-03 16:10:40",
-      energyKwh: "40.2",
-      number: "202608030500516531",
-      completed: "2026-08-03 16:10",
-      socStart: 12,
-      socEnd: 90,
-      durationMin: 68,
-      historyOrders: 10,
-    },
-    {
-      id: "normal-demo-20260801",
-      startedAt: "2026-08-01 17:56:00",
-      endedAt: "2026-08-01 18:42:00",
-      energyKwh: "30.5",
-      number: "202608010500516532",
-      completed: "2026-08-01 18:42",
-      socStart: 20,
-      socEnd: 82,
-      durationMin: 46,
-      historyOrders: 9,
-      demo: true,
-    },
-  ],
-  watch: [
-    {
-      id: "watch-demo-20260818",
-      startedAt: "2026-08-18 09:49:00",
-      endedAt: "2026-08-18 10:30:00",
-      energyKwh: "33.6",
-      number: "202608180500516533",
-      completed: "2026-08-18 10:30",
-      socStart: 28,
-      socEnd: 84,
-      durationMin: 41,
-      historyOrders: 8,
-      demo: true,
-    },
-    {
-      id: "watch-demo-20260815",
-      startedAt: "2026-08-15 19:39:00",
-      endedAt: "2026-08-15 20:15:00",
-      energyKwh: "33",
-      number: "202608150500516534",
-      completed: "2026-08-15 20:15",
-      socStart: 35,
-      socEnd: 90,
-      durationMin: 36,
-      historyOrders: 7,
-      demo: true,
-    },
-  ],
-  risk: [
-    {
-      id: "risk-20260817",
-      startedAt: "2026-08-17 00:04:53",
-      endedAt: "2026-08-17 00:43:26",
-      energyKwh: "25.21",
-      number: "202608170500516535",
-      completed: "2026-08-17 00:43",
-      socStart: 31,
-      socEnd: 98,
-      durationMin: 38,
-      historyOrders: 9,
-    },
-    {
-      id: "risk-demo-20260813",
-      startedAt: "2026-08-13 18:44:00",
-      endedAt: "2026-08-13 19:26:00",
-      energyKwh: "24.8",
-      number: "202608130500516536",
-      completed: "2026-08-13 19:26",
-      socStart: 24,
-      socEnd: 86,
-      durationMin: 42,
-      historyOrders: 8,
-      demo: true,
-    },
-  ],
-};
 const annualInspectionFields = [
   { key: "temperature", label: "最高温度" },
   { key: "maxVoltage", label: "最高电压" },
@@ -336,48 +87,6 @@ const annualInspectionFields = [
   { key: "voltageDifference", label: "电压极差" },
 ];
 // 数值、阈值和结果对应原型的本次体检记录；其他历史记录未提供的项目保持未评估。
-const annualInspectionData = {
-  "normal-20260803": {
-    temperature: {
-      value: "35.0",
-      unit: "℃",
-      threshold: "<54.0℃",
-      result: "normal",
-    },
-    maxVoltage: {
-      value: "4.19",
-      unit: "V",
-      threshold: "≤4.30V",
-      result: "normal",
-    },
-    voltageDifference: {
-      value: "0.58",
-      unit: "V",
-      threshold: "≤0.10V",
-      result: "abnormal",
-    },
-  },
-  "risk-20260817": {
-    temperature: {
-      value: "38.0",
-      unit: "℃",
-      threshold: "<60.0℃",
-      result: "normal",
-    },
-    maxVoltage: {
-      value: "4.14",
-      unit: "V",
-      threshold: "≤4.25V",
-      result: "normal",
-    },
-    voltageDifference: {
-      value: "0.34",
-      unit: "V",
-      threshold: "≤0.10V",
-      result: "abnormal",
-    },
-  },
-};
 const deepInspectionFields = [
   { key: "temperatureDifference", label: "最大温差" },
   { key: "temperatureRiseRate", label: "最大温升速率" },
@@ -386,46 +95,6 @@ const deepInspectionFields = [
   { key: "stopReason", label: "停充原因", type: "text", mergeReference: true },
 ];
 // 深度项目沿用两份原型的本次体检数据；缺少检测值时保留参考阈值，不推断结果。
-const deepInspectionData = {
-  "normal-20260803": {
-    temperatureDifference: {
-      value: "2.0",
-      unit: "℃",
-      threshold: "<15.0℃",
-      result: "normal",
-    },
-    temperatureRiseRate: { threshold: "<7.0℃/min" },
-    socChangeRate: {
-      value: "0.01",
-      unit: "%/min",
-      threshold: "<0.05%/min",
-      result: "normal",
-    },
-    stopReason: { value: "APP或小程序终止", result: "normal" },
-  },
-  "risk-20260817": {
-    temperatureDifference: {
-      value: "4.0",
-      unit: "℃",
-      threshold: "<15.0℃",
-      result: "normal",
-    },
-    temperatureRiseRate: {
-      value: "1.0",
-      unit: "℃/min",
-      threshold: "<7.0℃/min",
-      result: "normal",
-    },
-    socChangeRate: {
-      value: "0.03",
-      unit: "%/min",
-      threshold: "<0.05%/min",
-      result: "normal",
-    },
-    totalVoltage: { threshold: "≤705.6V" },
-    stopReason: { value: "SOC达到限制值停止", result: "normal" },
-  },
-};
 // 检测值与参考阈值统一使用系统字体，摄氏度沿用 °C 的展示形式。
 function renderInspectionMeasure(text) {
   return escapeHTML(String(text).replaceAll("℃", "°C"));
@@ -504,246 +173,6 @@ const curveTypes = {
 };
 // 仅用于高保真预览：按用户截图模拟电流走势，时间归一到当前体检单的起止时间。
 // 其余五类曲线没有原始序列，保留空图，不推算数值。
-const currentCurveSamples = [
-  [20, 19],
-  [20, 19],
-  [130, 127],
-  [130, 127],
-  [130, 127],
-  [130, 127],
-  [130, 127],
-  [130, 127],
-  [130, 127],
-  [130, 127],
-  [130, 127],
-  [130, 127],
-  [130, 127],
-  [130, 127],
-  [116, 115],
-  [116, 115],
-  [116, 115],
-  [116, 115],
-  [116, 115],
-  [116, 115],
-  [116, 115],
-  [102, 101],
-  [93, 92],
-  [91, 90],
-  [76, 75],
-  [70, 69],
-  [61, 60],
-  [61, 60],
-  [61, 60],
-  [61, 60],
-  [49, 46],
-  [43, 42],
-  [45, 44],
-  [31, 30],
-  [37, 34],
-  [32, 34],
-  [29, 28],
-  [29, 28],
-  [29, 28],
-];
-let activeCurve = "current",
-  curveGeometry = null,
-  curveSampleIndex = -1;
-function curveTime(ratio, includeSeconds = false) {
-  const check = getChargeCheck();
-  if (!check?.startedAt || !check?.endedAt) return "";
-  const start = new Date(check.startedAt.replace(" ", "T")).getTime(),
-    end = new Date(check.endedAt.replace(" ", "T")).getTime();
-  const date = new Date(start + (end - start) * ratio),
-    pad = (value) => String(value).padStart(2, "0");
-  return (
-    pad(date.getHours()) +
-    ":" +
-    pad(date.getMinutes()) +
-    (includeSeconds ? ":" + pad(date.getSeconds()) : "")
-  );
-}
-function clearCurveSample() {
-  curveSampleIndex = -1;
-  $("curveTooltip").hidden = true;
-  const marker = $("curveMarker");
-  if (marker) marker.innerHTML = "";
-}
-function renderChargeCurve() {
-  const type = curveTypes[activeCurve],
-    svg = $("curveSvg"),
-    width = $("curvePlot").getBoundingClientRect().width;
-  if (width <= 0) return;
-  // X 轴标签统一居中；右侧预留半个时间标签的宽度，避免首尾挤压或裁切。
-  const left = 30,
-    right = width - 16,
-    top = 18,
-    bottom = 178,
-    hasData = activeCurve === "current" && !!getChargeCheck();
-  curveGeometry = { left, right, top, bottom, width, hasData };
-  clearCurveSample();
-  svg.setAttribute("viewBox", "0 0 " + width + " 212");
-  svg.setAttribute(
-    "aria-label",
-    type.label +
-      (hasData
-        ? "，模拟数据。需求电流和实际电流随充电时间变化，可点选或使用左右方向键查看数值。"
-        : "，暂无曲线数据。"),
-  );
-  if (hasData) svg.setAttribute("tabindex", "0");
-  else svg.removeAttribute("tabindex");
-  $("curveMeta").dataset.empty = String(!hasData);
-  let drawing = '<text class="curve-axis" x="3" y="9">' + type.unit + "</text>";
-  for (let i = 0; i <= 5; i++) {
-    const y = top + ((bottom - top) * i) / 5;
-    drawing +=
-      '<line class="curve-grid" x1="' +
-      left +
-      '" y1="' +
-      y +
-      '" x2="' +
-      right +
-      '" y2="' +
-      y +
-      '"/>';
-    if (hasData)
-      drawing +=
-        '<text class="curve-axis" text-anchor="end" x="' +
-        (left - 6) +
-        '" y="' +
-        (y + 4) +
-        '">' +
-        (150 - i * 30) +
-        "</text>";
-  }
-  drawing +=
-    '<line x1="' +
-    left +
-    '" y1="' +
-    bottom +
-    '" x2="' +
-    right +
-    '" y2="' +
-    bottom +
-    '" stroke="#dce6e9" stroke-width=".5"/>';
-  for (let i = 0; i <= 4; i++)
-    drawing +=
-      '<text class="curve-axis" text-anchor="middle" x="' +
-      (left + ((right - left) * i) / 4) +
-      '" y="201">' +
-      curveTime(i / 4) +
-      "</text>";
-  if (hasData) {
-    for (const [series, className] of [
-      [0, "requested"],
-      [1, "actual"],
-    ]) {
-      const points = currentCurveSamples
-        .map(
-          (sample, i) =>
-            (
-              left +
-              ((right - left) * i) / (currentCurveSamples.length - 1)
-            ).toFixed(2) +
-            "," +
-            (bottom - (sample[series] / 150) * (bottom - top)).toFixed(2),
-        )
-        .join(" ");
-      drawing +=
-        '<polyline class="curve-line curve-line--' +
-        className +
-        '" points="' +
-        points +
-        '"/>';
-    }
-  } else
-    drawing +=
-      '<text class="curve-empty" text-anchor="middle" x="' +
-      (left + right) / 2 +
-      '" y="102">暂无曲线数据</text>';
-  svg.innerHTML =
-    drawing +
-    '<g id="curveMarker" aria-hidden="true" pointer-events="none"></g>';
-}
-function showCurveSample(index) {
-  if (!curveGeometry?.hasData) return;
-  curveSampleIndex = Math.max(
-    0,
-    Math.min(currentCurveSamples.length - 1, index),
-  );
-  const { left, right, top, bottom, width } = curveGeometry,
-    sample = currentCurveSamples[curveSampleIndex];
-  const ratio = curveSampleIndex / (currentCurveSamples.length - 1),
-    x = left + (right - left) * ratio;
-  $("curveMarker").innerHTML =
-    '<line x1="' +
-    x +
-    '" y1="' +
-    top +
-    '" x2="' +
-    x +
-    '" y2="' +
-    bottom +
-    '" stroke="#b0c5cb" stroke-width=".75" stroke-dasharray="3 3"/>' +
-    sample
-      .map(
-        (value, i) =>
-          '<circle cx="' +
-          x +
-          '" cy="' +
-          (bottom - (value / 150) * (bottom - top)) +
-          '" r="3" fill="' +
-          (i ? "#00bda1" : "#f27d78") +
-          '" stroke="#fff" stroke-width="1.5"/>',
-      )
-      .join("");
-  const tooltip = $("curveTooltip");
-  tooltip.style.left =
-    Math.max(0, Math.min(width - 140, x > width / 2 ? x - 150 : x + 10)) + "px";
-  tooltip.innerHTML =
-    "<time>" +
-    curveTime(ratio, true) +
-    "</time><div>需求电流<strong>" +
-    sample[0] +
-    "A</strong></div><div>实际电流<strong>" +
-    sample[1] +
-    "A</strong></div>";
-  tooltip.hidden = false;
-  $("curveSvg").setAttribute(
-    "aria-label",
-    "模拟数据，" +
-      curveTime(ratio, true) +
-      "，需求电流" +
-      sample[0] +
-      "A，实际电流" +
-      sample[1] +
-      "A。",
-  );
-}
-function keepActiveCurveVisible() {
-  const scroller = $("curveTabs"),
-    selected = $("curveTab-" + activeCurve);
-  const tabBounds = selected.getBoundingClientRect(),
-    scrollBounds = scroller.getBoundingClientRect(),
-    inset = parseFloat(getComputedStyle(scroller).paddingLeft) || 0;
-  if (tabBounds.left < scrollBounds.left + inset)
-    scroller.scrollLeft -= scrollBounds.left + inset - tabBounds.left;
-  else if (tabBounds.right > scrollBounds.right - inset)
-    scroller.scrollLeft += tabBounds.right - scrollBounds.right + inset;
-}
-function selectCurve(key, focus = false) {
-  if (!curveTypes[key]) return;
-  activeCurve = key;
-  for (const tab of $("curveTabs").querySelectorAll("[data-curve]")) {
-    const selected = tab.dataset.curve === key;
-    tab.setAttribute("aria-selected", String(selected));
-    tab.tabIndex = selected ? 0 : -1;
-  }
-  $("curvePanel").setAttribute("aria-labelledby", "curveTab-" + key);
-  const selected = $("curveTab-" + key);
-  keepActiveCurveVisible();
-  if (focus) selected.focus({ preventScroll: true });
-  renderChargeCurve();
-}
 const selectedChargeChecks = {};
 function getChargeChecks(state = activeState) {
   return [...(chargeChecks[state] || [])].sort((a, b) =>
@@ -830,7 +259,7 @@ function renderChargeCheck() {
   renderChargeBasics(check);
   renderAnnualInspection(check);
   renderDeepInspection(check);
-  renderChargeCurve();
+  chargeCurve.render();
 }
 function renderChargeOptions() {
   const selected = getChargeCheck();
@@ -874,54 +303,10 @@ const modelComparisonFields = [
   { key: "voltageSpread", label: "单体电压极差" },
   { key: "maxTemperatureSpread", label: "最大温差" },
 ];
-const modelComparisons = {
-  normal: {
-    city: "葫芦岛市",
-    percentile: 61,
-    values: {
-      healthScore: ["94.89分", "92.8分"],
-      capacity: ["86.94%", "78%"],
-      age: ["7年", "6年"],
-      monthlyCharges: ["2次", "9次"],
-      startSoc: ["34.1%", "49.4%"],
-      endSoc: ["78.9%", "75%"],
-      chargeDepth: ["44.8%", "25.6%"],
-      averagePower: ["29.27kW", "21.35kW"],
-      maxTemperature: ["36.2°C", "34.6°C"],
-      voltageSpread: ["0.44V", "0.47V"],
-      maxTemperatureSpread: ["3.3°C", "2.9°C"],
-    },
-  },
-  watch: {
-    // 亚安全演示车只有已知容量数据，同车型均值及其余字段留空。
-    values: { capacity: [null, reports.watch.soh + "%"] },
-  },
-  risk: {
-    city: "广州市",
-    percentile: 60,
-    values: {
-      healthScore: ["97.87分", "44.4分"],
-      capacity: ["91.6%", "94.8%"],
-      age: [null, null],
-      monthlyCharges: ["5次", "8次"],
-      startSoc: ["40.7%", "26.9%"],
-      endSoc: ["84.8%", "99.5%"],
-      chargeDepth: ["44.1%", "72.6%"],
-      averagePower: ["46.54kW", "42.42kW"],
-      maxTemperature: ["36.4°C", "36.6°C"],
-      voltageSpread: ["0.05V", "0.30V"],
-      maxTemperatureSpread: ["3.9°C", "4.6°C"],
-    },
-    // 只沿用原型明确标红的本车数据，不按与均值的高低关系推导异常。
-    abnormal: ["healthScore", "voltageSpread"],
-  },
-};
 function setModelComparisonExpanded(expanded) {
-  $("modelComparisonMore").hidden = !expanded;
-  $("modelComparisonToggle").setAttribute("aria-expanded", String(expanded));
-  $("modelComparisonToggleText").textContent = expanded
-    ? "收起"
-    : `查看全部${modelComparisonFields.length}项`;
+  const toggle = $("modelComparisonToggle");
+  toggle.dataset.bgLabelCollapsed = `查看全部${modelComparisonFields.length}项`;
+  ui.setExpanded(toggle, expanded, { notify: false });
 }
 function renderModelComparison(state) {
   const comparison = modelComparisons[state];
@@ -954,11 +339,6 @@ function renderModelComparison(state) {
 }
 
 // 沿用最终正常 / 高危原型的历史故障统计，不以安全评分或单次检测异常推算故障订单。
-const batteryFaultStatistics = {
-  normal: { rate: 0, faultOrders: 0, chargeOrders: 10 },
-  watch: null,
-  risk: { rate: 0, faultOrders: 0, chargeOrders: 9 },
-};
 function renderBatteryFaults(state) {
   const data = batteryFaultStatistics[state];
   const status = !data ? "missing" : data.faultOrders > 0 ? "fault" : "normal";
@@ -990,44 +370,6 @@ const healthDimensionFields = [
   { key: "voltageConsistency", label: "电压一致性得分" },
 ];
 // 本模块使用展示示例，每辆车五项正常、一项偏低；不作为检测事实或诊断依据。
-const batteryHealthOverviews = {
-  normal: {
-    demo: true,
-    annualDecay: null,
-    scores: {
-      annualDecay: 97.6,
-      faultControl: 96.2,
-      temperatureConsistency: 91.4,
-      maxTemperature: 92.8,
-      socConsistency: 72.6,
-      voltageConsistency: 94.3,
-    },
-  },
-  watch: {
-    demo: true,
-    annualDecay: null,
-    scores: {
-      annualDecay: 98.4,
-      faultControl: 93.6,
-      temperatureConsistency: 95.2,
-      maxTemperature: 90.8,
-      socConsistency: 54.6,
-      voltageConsistency: 92.4,
-    },
-  },
-  risk: {
-    demo: true,
-    annualDecay: null,
-    scores: {
-      annualDecay: 98.7,
-      faultControl: 92.4,
-      temperatureConsistency: 91.6,
-      maxTemperature: 93.2,
-      socConsistency: 44.4,
-      voltageConsistency: 95.0,
-    },
-  },
-};
 // 需求 4.2.4 的四档分项规则，独立于顶部安全总分的三档规则。
 // 原文 60、80 的端点重叠，此处暂按 60 归轻微异常、80 归需要关注；90 仍为需要关注。
 function getHealthScoreLevel(score) {
@@ -1059,21 +401,6 @@ function renderBatteryHealth(state) {
 // 正常车来自最终原型末尾补充资料；高危车来自其报告的基本信息。
 // watch 为虚构展示车辆，参数沿用 Figma 330:2813 的示例；续航仍与报告顶部一致。
 // 按最新展示要求，电池类型统一使用“磷酸铁锂”或“三元锂”。
-const batteryBasicInformation = {
-  normal: {
-    estimate: 12758, type: "三元锂", ratedCapacity: "153.0", nominalEnergy: "52.6",
-    cellVoltage: "4.3", maxTemperature: "54.0", totalVoltage: "410.0",
-  },
-  watch: {
-    demo: true,
-    estimate: 62758, type: "磷酸铁锂", ratedCapacity: "161.2", nominalEnergy: "55",
-    cellVoltage: "3.95", maxTemperature: "60", totalVoltage: "422.8",
-  },
-  risk: {
-    estimate: 17174, type: "三元锂", ratedCapacity: "100.0", nominalEnergy: "60.0",
-    cellVoltage: "4.25", maxTemperature: "60.0", totalVoltage: "705.6",
-  },
-};
 function renderBatteryBasics(state) {
   const data = batteryBasicInformation[state] ?? {}, report = reports[state];
   const rate = batteryFaultStatistics[state]?.rate;
@@ -1099,8 +426,10 @@ function renderBatteryBasics(state) {
 }
 
 let activeState = "normal";
-const $ = (id) => document.getElementById(id),
-  dialog = $("detailSheet");
+const root = document.querySelector("[data-battery-report]");
+const $ = id => root.querySelector(`#${id}`);
+const ui = BatteryGuardianUI.create(root);
+const chargeCurve = BatteryGuardianDemoChargeCurve.create({ root, ui, getChargeCheck, curveTypes });
 function formatPlate(plate) {
   const characters = Array.from(String(plate).replace(/[·•\s]/g, ""));
   return characters.length > 2
@@ -1146,7 +475,7 @@ function setState(state) {
   renderModelComparison(state);
   renderBatteryFaults(state);
   renderBatteryHealth(state);
-  BatteryProfessionalAnalysis.render(state, getHealthScoreLevel);
+  BatteryGuardianDemoProfessionalAnalysis.render(state, getHealthScoreLevel, root);
   renderBatteryBasics(state);
   $("app").classList.toggle("risk", safety.key === "risk");
   $("app").classList.toggle("watch", safety.key === "watch");
@@ -1165,54 +494,10 @@ function setState(state) {
     "分，安全状态" +
     safety.label;
 }
-let closeTimer;
-let sheetScrollPosition = null;
-function lockPageScroll() {
-  if (sheetScrollPosition) return;
-  sheetScrollPosition = { x: window.scrollX, y: window.scrollY };
-  document.body.style.setProperty("--sheet-scroll-top", `${-sheetScrollPosition.y}px`);
-  document.documentElement.classList.add("sheet-open");
-  document.body.classList.add("sheet-open");
-}
-function unlockPageScroll() {
-  if (!sheetScrollPosition) return;
-  const { x, y } = sheetScrollPosition;
-  sheetScrollPosition = null;
-  document.documentElement.classList.remove("sheet-open");
-  document.body.classList.remove("sheet-open");
-  document.body.style.removeProperty("--sheet-scroll-top");
-  window.scrollTo(x, y);
-}
-function finishSheetClose() {
-  clearTimeout(closeTimer);
-  dialog.close();
-  dialog.classList.remove("is-closing");
-  unlockPageScroll();
-}
-function closeSheet() {
-  if (!dialog.open || dialog.classList.contains("is-closing")) return;
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    finishSheetClose();
-    return;
-  }
-  dialog.classList.add("is-closing");
-  closeTimer = setTimeout(finishSheetClose, 240);
-}
-dialog.addEventListener("animationend", (event) => {
-  if (event.target === dialog && event.animationName === "sheet-exit")
-    finishSheetClose();
-});
-dialog.addEventListener("cancel", (event) => {
-  event.preventDefault();
-  closeSheet();
-});
-dialog.addEventListener("close", () => {
-  if (!dialog.open) unlockPageScroll();
-});
+const closeSheet = () => ui.closeSheet();
 function openSheet(type) {
   if (type === "vehicles" && Object.keys(reports).length < 2) return;
   if (type === "charge-records" && getChargeChecks().length < 2) return;
-  if (dialog.classList.contains("is-closing")) finishSheetClose();
   const d = reports[activeState],
     safety = getSafetyStatus(d.score);
   let title = "",
@@ -1309,18 +594,11 @@ function openSheet(type) {
       )
       .join("");
   }
-  dialog.dataset.kind = type;
-  $("sheetTitle").textContent = title;
-  $("sheetBody").innerHTML = body;
-  $("sheetActions").hidden = type !== "evidence";
-  dialog.scrollTop = 0;
-  if (!dialog.open) {
-    lockPageScroll();
-    dialog.showModal();
-  }
-  $("sheetBody").scrollTop = 0;
+  const template = document.createElement("template");
+  template.innerHTML = body; // 本文件中的模板只用于演示；接口文本需转义后渲染。
+  ui.openSheet({ title, content: template.content, kind: type, showConfirm: type === "evidence" });
 }
-document.addEventListener("click", (event) => {
+root.addEventListener("click", (event) => {
   const trigger = event.target.closest("[data-sheet]");
   if (trigger) openSheet(trigger.dataset.sheet);
   const vehicle = event.target.closest("[data-vehicle]");
@@ -1331,84 +609,5 @@ document.addEventListener("click", (event) => {
   const chargeCheck = event.target.closest("[data-charge-check]");
   if (chargeCheck) selectChargeCheck(chargeCheck.dataset.chargeCheck);
 });
-document.querySelector(".sheet-close").addEventListener("click", closeSheet);
-$("modelComparisonToggle").addEventListener("click", () => {
-  setModelComparisonExpanded($("modelComparisonMore").hidden);
-});
-$("curveTabs").addEventListener("click", (event) => {
-  const tab = event.target.closest("[data-curve]");
-  if (tab) selectCurve(tab.dataset.curve);
-});
-$("curveTabs").addEventListener("keydown", (event) => {
-  const keys = Object.keys(curveTypes),
-    index = keys.indexOf(activeCurve);
-  let next;
-  if (event.key === "ArrowRight") next = (index + 1) % keys.length;
-  else if (event.key === "ArrowLeft")
-    next = (index + keys.length - 1) % keys.length;
-  else if (event.key === "Home") next = 0;
-  else if (event.key === "End") next = keys.length - 1;
-  if (next != null) {
-    event.preventDefault();
-    selectCurve(keys[next], true);
-  }
-});
-function inspectCurvePointer(event) {
-  if (!curveGeometry?.hasData) return;
-  const { left, right } = curveGeometry,
-    x = event.clientX - $("curveSvg").getBoundingClientRect().left;
-  showCurveSample(
-    Math.round(
-      ((x - left) / (right - left)) * (currentCurveSamples.length - 1),
-    ),
-  );
-}
-$("curveSvg").addEventListener("pointerdown", inspectCurvePointer);
-$("curveSvg").addEventListener("pointermove", (event) => {
-  if (event.pointerType === "mouse" || event.buttons)
-    inspectCurvePointer(event);
-});
-$("curveSvg").addEventListener("pointerleave", (event) => {
-  if (event.pointerType === "mouse") clearCurveSample();
-});
-$("curveSvg").addEventListener("pointercancel", clearCurveSample);
-$("curveSvg").addEventListener("blur", clearCurveSample);
-$("curveSvg").addEventListener("keydown", (event) => {
-  if (!curveGeometry?.hasData) return;
-  if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
-    event.preventDefault();
-    showCurveSample(
-      curveSampleIndex < 0
-        ? 0
-        : curveSampleIndex + (event.key === "ArrowRight" ? 1 : -1),
-    );
-  } else if (event.key === "Escape") clearCurveSample();
-});
-document.addEventListener("pointerdown", (event) => {
-  if (!event.target.closest("#curvePlot")) clearCurveSample();
-});
-let curveWidth = 0;
-new ResizeObserver((entries) => {
-  const width = entries[0].contentRect.width;
-  if (Math.abs(width - curveWidth) > 0.5) {
-    curveWidth = width;
-    keepActiveCurveVisible();
-    renderChargeCurve();
-  }
-}).observe($("curvePlot"));
-document
-  .querySelector(".evidence-confirm")
-  .addEventListener("click", closeSheet);
-dialog.addEventListener("click", (event) => {
-  if (event.target === dialog) {
-    const r = dialog.getBoundingClientRect();
-    if (
-      event.clientX < r.left ||
-      event.clientX > r.right ||
-      event.clientY < r.top ||
-      event.clientY > r.bottom
-    )
-      closeSheet();
-  }
-});
 setState(Object.keys(reports)[0]);
+})();

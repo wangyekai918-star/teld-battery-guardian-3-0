@@ -1,11 +1,16 @@
 @font-face {
-  font-family: DIN;
+  font-family: BatteryGuardianDIN;
   src: url("../assets/din-semibold.woff2?v=b89597077004") format("woff2");
   font-weight: 600;
   font-display: swap;
 }
 /* 卡片间距规范：页面边距和卡片间距 8px；文字/图片行内边距 12px；嵌套容器行内边距 8px。 */
-:root {
+:where([data-battery-report]) {
+  --bg-sheet-enter-duration: 280ms;
+  --bg-sheet-exit-duration: 200ms;
+  --bg-sheet-mask-duration: 200ms;
+  --bg-sheet-enter-easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --bg-sheet-exit-easing: cubic-bezier(0.4, 0, 1, 1);
   --sheet-item-title-size: 14px;
   --sheet-item-subtitle-size: 12px;
   --page-gutter: 8px;
@@ -20,10 +25,11 @@
   --red: #f0445e;
   --orange: #ae6509;
 }
-* {
+:where([data-battery-report]),
+:where([data-battery-report]) * {
   box-sizing: border-box;
 }
-body {
+:where([data-battery-report]) {
   margin: 0;
   color: var(--ink);
   background: #eef2f4;
@@ -32,7 +38,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
 }
-button {
+:where([data-battery-report]) button {
   font: inherit;
   color: inherit;
   cursor: pointer;
@@ -41,20 +47,20 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 /* 移动端界面统一去掉焦点外圈，保留各控件自身的选中状态。 */
-:focus {
+:where([data-battery-report]) :focus {
   outline: none;
 }
-button:disabled {
+:where([data-battery-report]) button:disabled {
   cursor: default;
 }
-.icon {
+:where([data-battery-report]) .icon {
   display: block;
   width: 20px;
   height: 20px;
   flex: none;
   object-fit: contain;
 }
-.page-shell {
+:where([data-battery-report]) .page-shell {
   position: relative;
   width: 100%;
   max-width: 550px;
@@ -63,13 +69,13 @@ button:disabled {
   margin: 0 auto;
   background: var(--bg);
 }
-.brand-banner {
+:where([data-battery-report]) .brand-banner {
   height: 150px;
   position: relative;
   isolation: isolate;
   overflow: hidden;
 }
-.brand-art {
+:where([data-battery-report]) .brand-art {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -78,7 +84,7 @@ button:disabled {
   object-position: right top;
   z-index: -1;
 }
-.report-content {
+:where([data-battery-report]) .report-content {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -86,20 +92,20 @@ button:disabled {
   padding: 8px var(--page-gutter) 20px;
   margin-top: -31px;
 }
-.report-identity {
+:where([data-battery-report]) .report-identity {
   margin: 0;
   background: #fff;
   border-radius: 16px;
   overflow: hidden;
 }
-.overview {
+:where([data-battery-report]) .overview {
   padding: 0;
   background: #fff;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: none;
 }
-.vehicle-copy {
+:where([data-battery-report]) .vehicle-copy {
   display: flex;
   flex: 1;
   min-width: 0;
@@ -107,13 +113,13 @@ button:disabled {
   align-items: flex-start;
   gap: 0;
 }
-.vehicle-plate {
+:where([data-battery-report]) .vehicle-plate {
   font-size: 16px;
   font-weight: 600;
   line-height: 22px;
   white-space: nowrap;
 }
-.vehicle-name {
+:where([data-battery-report]) .vehicle-name {
   display: block;
   width: 100%;
   font-size: 12px;
@@ -124,7 +130,7 @@ button:disabled {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.vehicle-switch {
+:where([data-battery-report]) .vehicle-switch {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -133,7 +139,7 @@ button:disabled {
   padding: var(--content-inset);
   text-align: left;
 }
-.vehicle-preview {
+:where([data-battery-report]) .vehicle-preview {
   position: relative;
   display: block;
   flex: none;
@@ -141,7 +147,7 @@ button:disabled {
   height: 40px;
   overflow: hidden;
 }
-.vehicle-preview img {
+:where([data-battery-report]) .vehicle-preview img {
   position: absolute;
   display: block;
   width: 70.245px;
@@ -150,7 +156,7 @@ button:disabled {
   top: 2px;
   object-fit: cover;
 }
-.vehicle-switch-affordance {
+:where([data-battery-report]) .vehicle-switch-affordance {
   display: flex;
   flex: none;
   align-items: center;
@@ -160,23 +166,23 @@ button:disabled {
   line-height: 17px;
   color: rgba(13, 35, 44, 0.6);
 }
-.vehicle-switch-affordance[hidden] {
+:where([data-battery-report]) .vehicle-switch-affordance[hidden] {
   display: none;
 }
-.switch-arrow {
+:where([data-battery-report]) .switch-arrow {
   display: block;
   flex: none;
   width: 8px;
   height: 8px;
 }
-.score-primary {
+:where([data-battery-report]) .score-primary {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 6px 12px;
   padding: var(--content-inset) var(--content-inset) 0;
 }
-.score-label {
+:where([data-battery-report]) .score-label {
   grid-column: 1 / -1;
   display: flex;
   align-items: center;
@@ -187,7 +193,7 @@ button:disabled {
   line-height: 24px;
   color: var(--ink);
 }
-.info-button {
+:where([data-battery-report]) .info-button {
   position: relative;
   display: grid;
   place-items: center;
@@ -198,40 +204,40 @@ button:disabled {
   padding: 0;
   color: #92a0a6;
 }
-.info-button:after {
+:where([data-battery-report]) .info-button:after {
   content: "";
   position: absolute;
   inset: -12px -14px;
 }
-.info-button .icon {
+:where([data-battery-report]) .info-button .icon {
   width: 12px;
   height: 12px;
 }
-.score-reading {
+:where([data-battery-report]) .score-reading {
   display: flex;
   align-items: baseline;
   gap: 3px;
   margin: 0;
 }
-.score-number {
+:where([data-battery-report]) .score-number {
   font:
-    600 48px/1 DIN,
+    600 48px/1 BatteryGuardianDIN,
     sans-serif;
   letter-spacing: -0.8px;
   color: var(--green);
 }
-.score-unit {
+:where([data-battery-report]) .score-unit {
   font-size: 14px;
   font-weight: 700;
   line-height: 20px;
   color: #81938d;
 }
-.safety {
+:where([data-battery-report]) .safety {
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
-.safety-value {
+:where([data-battery-report]) .safety-value {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -240,28 +246,28 @@ button:disabled {
   background: #eaf8f2;
   color: var(--green);
 }
-.safety-symbol {
+:where([data-battery-report]) .safety-symbol {
   display: flex;
   flex: none;
   width: 16px;
   height: 16px;
 }
-.safety-symbol .icon {
+:where([data-battery-report]) .safety-symbol .icon {
   width: 16px;
   height: 16px;
 }
-.safety-value strong {
+:where([data-battery-report]) .safety-value strong {
   font-size: 14px;
   font-weight: 600;
   line-height: 22px;
 }
-.metrics {
+:where([data-battery-report]) .metrics {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--card-gap);
   padding: var(--nested-inset);
 }
-.metric {
+:where([data-battery-report]) .metric {
   display: flex;
   min-width: 0;
   flex-direction: column;
@@ -270,16 +276,16 @@ button:disabled {
   border-radius: 8px;
   text-align: left;
 }
-.metric:active {
+:where([data-battery-report]) .metric:active {
   filter: brightness(0.98);
 }
-.soh {
+:where([data-battery-report]) .soh {
   background: #f0f8f5;
 }
-.range {
+:where([data-battery-report]) .range {
   background: #f0f6fb;
 }
-.metric-heading {
+:where([data-battery-report]) .metric-heading {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -289,17 +295,17 @@ button:disabled {
   color: #667b82;
   white-space: nowrap;
 }
-.metric-heading > .icon {
+:where([data-battery-report]) .metric-heading > .icon {
   width: 16px;
   height: 16px;
 }
-.soh .metric-heading > .icon {
+:where([data-battery-report]) .soh .metric-heading > .icon {
   color: #328873;
 }
-.range .metric-heading > .icon {
+:where([data-battery-report]) .range .metric-heading > .icon {
   color: #6996b2;
 }
-.metric-reading {
+:where([data-battery-report]) .metric-reading {
   display: flex;
   align-items: baseline;
   gap: 2px;
@@ -307,17 +313,17 @@ button:disabled {
   margin-top: 4px;
   color: var(--ink);
 }
-.metric-number {
+:where([data-battery-report]) .metric-number {
   font:
-    600 28px/32px DIN,
+    600 28px/32px BatteryGuardianDIN,
     sans-serif;
   letter-spacing: -0.2px;
 }
-.metric-unit {
+:where([data-battery-report]) .metric-unit {
   font-size: 12px;
   line-height: 18px;
 }
-.metric-note {
+:where([data-battery-report]) .metric-note {
   margin-left: auto;
   padding-left: 4px;
   font-size: 11px;
@@ -325,7 +331,7 @@ button:disabled {
   color: #7894a5;
   white-space: nowrap;
 }
-.report-meta {
+:where([data-battery-report]) .report-meta {
   display: flex;
   align-items: center;
   gap: 3px;
@@ -336,43 +342,31 @@ button:disabled {
   color: rgba(13, 35, 44, 0.6);
   white-space: nowrap;
 }
-.report-id {
+:where([data-battery-report]) .report-id {
   font: inherit;
   letter-spacing: 0;
 }
-.watch .score-number {
+:where([data-battery-report]) .watch .score-number {
   color: #ce8917;
 }
-.watch .safety-value {
+:where([data-battery-report]) .watch .safety-value {
   background: #fff5e3;
   color: #b87910;
 }
-.watch .score-unit {
+:where([data-battery-report]) .watch .score-unit {
   color: #a18557;
 }
-.risk .score-number {
+:where([data-battery-report]) .risk .score-number {
   color: var(--red);
 }
-.risk .safety-value {
+:where([data-battery-report]) .risk .safety-value {
   background: #fff0f3;
   color: #dc405b;
 }
-.risk .score-unit {
+:where([data-battery-report]) .risk .score-unit {
   color: #a1848c;
 }
-/* 固定页面并保留原来的滚动偏移，避免 iOS 抽屉下方的页面继续滚动。 */
-html.sheet-open {
-  overflow: hidden;
-  overscroll-behavior: none;
-}
-body.sheet-open {
-  position: fixed;
-  top: var(--sheet-scroll-top, 0px);
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-}
-.sheet {
+:where([data-battery-report]) .sheet {
   border: 0;
   border-radius: 20px 20px 0 0;
   padding: 16px;
@@ -386,13 +380,13 @@ body.sheet-open {
   overflow-y: auto;
   overscroll-behavior: contain;
 }
-.sheet::backdrop {
+:where([data-battery-report]) .sheet::backdrop {
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   touch-action: none;
 }
-.sheet-head {
+:where([data-battery-report]) .sheet-head {
   padding: 0;
   margin: 0 0 16px;
   display: flex;
@@ -401,12 +395,12 @@ body.sheet-open {
   gap: 12px;
   min-height: 28px;
 }
-.sheet-head h2 {
+:where([data-battery-report]) .sheet-head h2 {
   font-size: 18px;
   margin: 0;
   font-weight: 600;
 }
-.sheet-close {
+:where([data-battery-report]) .sheet-close {
   position: relative;
   width: 28px;
   height: 28px;
@@ -417,24 +411,24 @@ body.sheet-open {
   background: #f4f7f8;
   color: #60747c;
 }
-.sheet-body {
+:where([data-battery-report]) .sheet-body {
   padding: 0;
   font-size: 14px;
   line-height: 1.85;
   color: #60747c;
 }
-.sheet-body p {
+:where([data-battery-report]) .sheet-body p {
   margin: 0 0 14px;
 }
-.sheet-body strong {
+:where([data-battery-report]) .sheet-body strong {
   font-weight: 600;
   color: var(--ink);
 }
-.sheet-body .note {
+:where([data-battery-report]) .sheet-body .note {
   font-size: 12px;
   color: #8a999e;
 }
-.sheet-body .value-line {
+:where([data-battery-report]) .sheet-body .value-line {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -443,23 +437,23 @@ body.sheet-open {
   font-size: 13px;
   gap: 16px;
 }
-.sheet-body .value-line b {
-  font-family: DIN, sans-serif;
+:where([data-battery-report]) .sheet-body .value-line b {
+  font-family: BatteryGuardianDIN, sans-serif;
   font-size: 17px;
   font-weight: 600;
   color: #314f5a;
 }
-.sheet-body .advice {
+:where([data-battery-report]) .sheet-body .advice {
   padding: var(--content-inset);
   border-radius: 12px;
   background: #f3f8f6;
   margin-top: 16px;
   font-size: 13px;
 }
-.sheet-body .advice strong {
+:where([data-battery-report]) .sheet-body .advice strong {
   color: #2b7260;
 }
-.vehicle-option {
+:where([data-battery-report]) .vehicle-option {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -471,18 +465,18 @@ body.sheet-open {
   border-radius: 12px;
   margin: 0;
 }
-.vehicle-option[aria-pressed="true"] {
+:where([data-battery-report]) .vehicle-option[aria-pressed="true"] {
   background: #f1faf7;
   border-color: #9ad9c9;
 }
-.vehicle-option strong {
+:where([data-battery-report]) .vehicle-option strong {
   font-size: var(--sheet-item-title-size);
   line-height: 22px;
   font-weight: 600;
   display: block;
   white-space: nowrap;
 }
-.vehicle-option small {
+:where([data-battery-report]) .vehicle-option small {
   display: block;
   width: 100%;
   font-size: var(--sheet-item-subtitle-size);
@@ -492,12 +486,12 @@ body.sheet-open {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.vehicle-option .icon {
+:where([data-battery-report]) .vehicle-option .icon {
   width: 22px;
   height: 22px;
   color: #00a88c;
 }
-.sheet-done {
+:where([data-battery-report]) .sheet-done {
   width: 100%;
   height: 46px;
   border-radius: 12px;
@@ -506,7 +500,7 @@ body.sheet-open {
   font-weight: 600;
   margin-top: 12px;
 }
-.screenreader-only {
+:where([data-battery-report]) .screenreader-only {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -515,66 +509,67 @@ body.sheet-open {
   white-space: nowrap;
 }
 @media (max-width: 480px) {
-  body {
+  :where([data-battery-report]) {
     background: var(--bg);
   }
-  .sheet {
+  :where([data-battery-report]) .sheet {
     width: 100%;
     max-width: 550px;
   }
 }
 @media (max-width: 359px) {
-  .metric-heading {
+  :where([data-battery-report]) .metric-heading {
     font-size: 11px;
   }
-  .metric-number {
+  :where([data-battery-report]) .metric-number {
     font-size: 26px;
   }
-  .metric-note {
+  :where([data-battery-report]) .metric-note {
     font-size: 10px;
     padding-left: 0;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *:before,
-  *:after {
+  :where([data-battery-report]),
+:where([data-battery-report]) *,
+:where([data-battery-report]) *:before,
+:where([data-battery-report]) *:after {
     transition: none !important;
     scroll-behavior: auto !important;
   }
 }
 
 /* 抽屉统一动效：打开时从底部滑入，关闭结束后再退出原生模态层。 */
-.sheet[open] {
-  animation: sheet-enter 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+:where([data-battery-report]) .sheet[open] {
+  animation: bg-sheet-enter var(--bg-sheet-enter-duration) var(--bg-sheet-enter-easing) both;
 }
-.sheet[open]::backdrop {
-  animation: sheet-mask-enter 200ms ease both;
+:where([data-battery-report]) .sheet[open]::backdrop {
+  animation: bg-sheet-mask-enter var(--bg-sheet-mask-duration) ease both;
 }
-.sheet[open].is-closing {
-  animation: sheet-exit 200ms cubic-bezier(0.4, 0, 1, 1) both;
+:where([data-battery-report]) .sheet[open].is-closing {
+  animation: bg-sheet-exit var(--bg-sheet-exit-duration) var(--bg-sheet-exit-easing) both;
   pointer-events: none;
 }
-.sheet[open].is-closing::backdrop {
-  animation: sheet-mask-exit 200ms ease both;
+:where([data-battery-report]) .sheet[open].is-closing::backdrop {
+  animation: bg-sheet-mask-exit var(--bg-sheet-mask-duration) ease both;
 }
-.sheet-close .icon {
+:where([data-battery-report]) .sheet-close .icon {
   width: 16px;
   height: 16px;
 }
-.sheet-close:after {
+:where([data-battery-report]) .sheet-close:after {
   content: "";
   position: absolute;
   inset: -8px;
 }
-.sheet-body > :last-child {
+:where([data-battery-report]) .sheet-body > :last-child {
   margin-bottom: 0;
 }
 /* 所有抽屉列表复用 vehicle-option：主标题统一 14px，副标题统一 12px。 */
-.vehicle-option + .vehicle-option {
+:where([data-battery-report]) .vehicle-option + .vehicle-option {
   margin-top: var(--card-gap);
 }
-@keyframes sheet-enter {
+@keyframes bg-sheet-enter {
   from {
     transform: translateY(100%);
   }
@@ -582,7 +577,7 @@ body.sheet-open {
     transform: translateY(0);
   }
 }
-@keyframes sheet-exit {
+@keyframes bg-sheet-exit {
   from {
     transform: translateY(0);
   }
@@ -590,7 +585,7 @@ body.sheet-open {
     transform: translateY(100%);
   }
 }
-@keyframes sheet-mask-enter {
+@keyframes bg-sheet-mask-enter {
   from {
     opacity: 0;
   }
@@ -598,7 +593,7 @@ body.sheet-open {
     opacity: 1;
   }
 }
-@keyframes sheet-mask-exit {
+@keyframes bg-sheet-mask-exit {
   from {
     opacity: 1;
   }
@@ -607,14 +602,14 @@ body.sheet-open {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .sheet[open],
-  .sheet[open]::backdrop {
+  :where([data-battery-report]) .sheet[open],
+:where([data-battery-report]) .sheet[open]::backdrop {
     animation: none !important;
   }
 }
 
 /* Figma 292:1135：标题 (18,33)，三行间距 6px，更新时间容器圆角 38px；车辆图片区 66×40，内容区左右 8px。 */
-.brand-copy {
+:where([data-battery-report]) .brand-copy {
   position: absolute;
   left: 18px;
   top: 33px;
@@ -623,13 +618,13 @@ body.sheet-open {
   align-items: flex-start;
   gap: 6px;
 }
-.brand-heading {
+:where([data-battery-report]) .brand-heading {
   display: block;
   width: 186px;
   height: 22px;
   flex: none;
 }
-.updated {
+:where([data-battery-report]) .updated {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -643,7 +638,7 @@ body.sheet-open {
   color: rgba(13, 35, 44, 0.8);
   white-space: nowrap;
 }
-.update-icon {
+:where([data-battery-report]) .update-icon {
   display: block;
   flex: none;
   width: 12px;
@@ -652,12 +647,12 @@ body.sheet-open {
 
 /* 宽屏延展背景左侧留白，右侧插画保持设计稿尺寸，避免放大后被卡片截断。 */
 @media (min-width: 376px) {
-  .brand-banner {
+  :where([data-battery-report]) .brand-banner {
     background-image: url("../assets/report-background.jpg?v=297-1594-156");
     background-size: 100% 156px;
     background-repeat: no-repeat;
   }
-  .brand-art {
+  :where([data-battery-report]) .brand-art {
     inset: 0 0 auto auto;
     width: 375px;
     height: 156px;
@@ -668,65 +663,65 @@ body.sheet-open {
 }
 
 /* 结论与建议：标题区 12px，内部卡片 10px，卡片外侧和间距 8px；严重程度由具体指标决定。 */
-.conclusions {
+:where([data-battery-report]) .conclusions {
   background: #fff;
   border-radius: 16px;
   overflow: hidden;
 }
-.conclusions-head {
+:where([data-battery-report]) .conclusions-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
   padding: var(--content-inset);
 }
-.section-heading {
+:where([data-battery-report]) .section-heading {
   margin: 0;
   font-size: 16px;
   font-weight: 600;
   line-height: 24px;
   color: var(--ink);
 }
-.conclusions-summary {
+:where([data-battery-report]) .conclusions-summary {
   font-size: 12px;
   line-height: 20px;
   color: #a46a18;
   white-space: nowrap;
 }
-.conclusions-summary[data-level="severe"] {
+:where([data-battery-report]) .conclusions-summary[data-level="severe"] {
   color: #d9425c;
 }
-.conclusions-summary[hidden],
-.conclusions-demo[hidden] {
+:where([data-battery-report]) .conclusions-summary[hidden],
+:where([data-battery-report]) .conclusions-demo[hidden] {
   display: none;
 }
-.conclusions-content {
+:where([data-battery-report]) .conclusions-content {
   display: grid;
   gap: var(--card-gap);
   padding: 0 var(--nested-inset);
 }
-.conclusion-item {
+:where([data-battery-report]) .conclusion-item {
   --item-accent: #31836f;
   --item-bg: #f1f8f5;
   padding: 10px;
   border-radius: 10px;
   background: var(--item-bg);
 }
-.conclusion-item[data-level="attention"] {
+:where([data-battery-report]) .conclusion-item[data-level="attention"] {
   --item-accent: #a56916;
   --item-bg: #fff7eb;
 }
-.conclusion-item[data-level="severe"] {
+:where([data-battery-report]) .conclusion-item[data-level="severe"] {
   --item-accent: #d4425b;
   --item-bg: #fff2f4;
 }
-.conclusion-title-row {
+:where([data-battery-report]) .conclusion-title-row {
   display: flex;
   align-items: center;
   gap: 4px;
   min-width: 0;
 }
-.conclusion-title {
+:where([data-battery-report]) .conclusion-title {
   flex: 1;
   min-width: 0;
   margin: 0;
@@ -735,14 +730,14 @@ body.sheet-open {
   font-weight: 600;
   color: var(--ink);
 }
-.conclusion-badge {
+:where([data-battery-report]) .conclusion-badge {
   display: block;
   flex: none;
   width: 30px;
   height: 17px;
   object-fit: contain;
 }
-.conclusion-data {
+:where([data-battery-report]) .conclusion-data {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
@@ -752,35 +747,35 @@ body.sheet-open {
   line-height: 18px;
   color: #687d84;
 }
-.conclusion-datum {
+:where([data-battery-report]) .conclusion-datum {
   display: inline-block;
   white-space: nowrap;
 }
-.conclusion-datum + .conclusion-datum:before {
+:where([data-battery-report]) .conclusion-datum + .conclusion-datum:before {
   content: "·";
   margin-right: 5px;
   color: #9aabb0;
 }
-.conclusion-value {
-  font-family: DIN, sans-serif;
+:where([data-battery-report]) .conclusion-value {
+  font-family: BatteryGuardianDIN, sans-serif;
   font-size: 14px;
   font-weight: 600;
   color: var(--item-accent);
 }
-.conclusion-unit--zh {
+:where([data-battery-report]) .conclusion-unit--zh {
   font-family:
     -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei",
     sans-serif;
   font-size: 12px;
 }
-.conclusion-advice {
+:where([data-battery-report]) .conclusion-advice {
   margin: 2px 0 0;
   font-size: 12px;
   line-height: 18px;
   color: #687d84;
   overflow-wrap: anywhere;
 }
-.conclusions-demo {
+:where([data-battery-report]) .conclusions-demo {
   margin: 0;
   padding: 0 4px 4px;
   font-size: 11px;
@@ -788,7 +783,7 @@ body.sheet-open {
   color: #7d9098;
 }
 /* 入口统一提供上下 12px 留白，避免与卡片列表底部留白叠加。 */
-.evidence-trigger {
+:where([data-battery-report]) .evidence-trigger {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -801,19 +796,19 @@ body.sheet-open {
   line-height: 20px;
   font-weight: 500;
 }
-.evidence-trigger .icon {
+:where([data-battery-report]) .evidence-trigger .icon {
   width: 11px;
   height: 11px;
 }
-.evidence-trigger:active {
+:where([data-battery-report]) .evidence-trigger:active {
   background: #f5faf8;
 }
-.evidence-context {
+:where([data-battery-report]) .evidence-context {
   font-size: 12px;
   line-height: 20px;
   color: #82939a;
 }
-.evidence-list {
+:where([data-battery-report]) .evidence-list {
   display: grid;
   gap: 8px;
   margin: 0;
@@ -821,13 +816,13 @@ body.sheet-open {
   list-style: none;
   counter-reset: evidence;
 }
-.evidence-item {
+:where([data-battery-report]) .evidence-item {
   counter-increment: evidence;
   padding: 12px;
   border-radius: 10px;
   background: #f5f8f9;
 }
-.evidence-title {
+:where([data-battery-report]) .evidence-title {
   display: flex;
   align-items: center;
   gap: 7px;
@@ -837,52 +832,52 @@ body.sheet-open {
   line-height: 22px;
   font-weight: 600;
 }
-.evidence-title:before {
+:where([data-battery-report]) .evidence-title:before {
   content: counter(evidence, decimal-leading-zero);
   font:
-    600 16px/22px DIN,
+    600 16px/22px BatteryGuardianDIN,
     sans-serif;
   color: #87a09f;
 }
-.sheet-body .evidence-copy {
+:where([data-battery-report]) .sheet-body .evidence-copy {
   margin: 0;
   color: #60747c;
   font-size: 13px;
   line-height: 22px;
   overflow-wrap: anywhere;
 }
-.evidence-item--advice {
+:where([data-battery-report]) .evidence-item--advice {
   background: #eff8f4;
 }
-.evidence-item--advice .evidence-title {
+:where([data-battery-report]) .evidence-item--advice .evidence-title {
   color: #287863;
 }
-.evidence-item--advice .evidence-title:before {
+:where([data-battery-report]) .evidence-item--advice .evidence-title:before {
   color: #52a18a;
 }
-.sheet[data-kind="evidence"][open] {
+:where([data-battery-report]) .sheet[data-kind="evidence"][open] {
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
-.sheet[data-kind="evidence"] .sheet-head {
+:where([data-battery-report]) .sheet[data-kind="evidence"] .sheet-head {
   flex: none;
   margin: 0 0 8px;
 }
-.sheet[data-kind="evidence"] .sheet-body {
+:where([data-battery-report]) .sheet[data-kind="evidence"] .sheet-body {
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
 }
-.sheet-actions {
+:where([data-battery-report]) .sheet-actions {
   flex: none;
   margin-top: 12px;
 }
-.sheet-actions[hidden] {
+:where([data-battery-report]) .sheet-actions[hidden] {
   display: none;
 }
-.evidence-confirm {
+:where([data-battery-report]) .evidence-confirm {
   display: block;
   width: 100%;
   height: 44px;
@@ -894,33 +889,33 @@ body.sheet-open {
   line-height: 22px;
   font-weight: 600;
 }
-.evidence-confirm:active {
+:where([data-battery-report]) .evidence-confirm:active {
   background: #00ab92;
 }
 
 /* 充电体检单：标题区 12px，数据容器外侧 8px；与报告其他模块共用卡片规范。 */
-.charge-check {
+:where([data-battery-report]) .charge-check {
   background: #fff;
   border-radius: 16px;
   overflow: hidden;
 }
-.charge-head {
+:where([data-battery-report]) .charge-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
   padding: 12px;
 }
-.charge-heading {
+:where([data-battery-report]) .charge-heading {
   display: flex;
   align-items: center;
   gap: 2px;
   flex: none;
 }
-.charge-heading .section-heading {
+:where([data-battery-report]) .charge-heading .section-heading {
   white-space: nowrap;
 }
-.charge-date {
+:where([data-battery-report]) .charge-date {
   position: relative;
   display: flex;
   align-items: center;
@@ -934,33 +929,33 @@ body.sheet-open {
   color: #607b83;
   white-space: nowrap;
 }
-.charge-date:after {
+:where([data-battery-report]) .charge-date:after {
   content: "";
   position: absolute;
   inset: -10px -4px;
 }
-.charge-date .switch-arrow[hidden] {
+:where([data-battery-report]) .charge-date .switch-arrow[hidden] {
   display: none;
 }
-.charge-date:disabled:after {
+:where([data-battery-report]) .charge-date:disabled:after {
   display: none;
 }
 /* 同一充电体检单内，概览、进度详情、检测项目作为并列的内层模块。 */
-.charge-modules {
+:where([data-battery-report]) .charge-modules {
   display: flex;
   flex-direction: column;
   gap: var(--card-gap);
   padding: 0 var(--nested-inset) var(--nested-inset);
 }
-.charge-inner-panel {
+:where([data-battery-report]) .charge-inner-panel {
   min-width: 0;
   border-radius: 10px;
   background: #f5f7f8;
 }
-.charge-content {
+:where([data-battery-report]) .charge-content {
   padding: 0;
 }
-.charge-stats {
+:where([data-battery-report]) .charge-stats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin: 0;
@@ -968,7 +963,7 @@ body.sheet-open {
   border-radius: 10px;
   background: #f1f8f5;
 }
-.charge-stat {
+:where([data-battery-report]) .charge-stat {
   position: relative;
   display: flex;
   min-width: 0;
@@ -977,7 +972,7 @@ body.sheet-open {
   gap: 2px;
   padding: 0 8px;
 }
-.charge-stat + .charge-stat:before {
+:where([data-battery-report]) .charge-stat + .charge-stat:before {
   content: "";
   position: absolute;
   top: 6px;
@@ -986,7 +981,7 @@ body.sheet-open {
   width: 1px;
   background: #dceee7;
 }
-.charge-stat dt {
+:where([data-battery-report]) .charge-stat dt {
   order: 1;
   margin: 0;
   font-size: 12px;
@@ -994,7 +989,7 @@ body.sheet-open {
   color: #73878c;
   white-space: nowrap;
 }
-.charge-stat dd {
+:where([data-battery-report]) .charge-stat dd {
   display: flex;
   align-items: baseline;
   justify-content: center;
@@ -1005,47 +1000,47 @@ body.sheet-open {
   color: #158976;
   white-space: nowrap;
 }
-.charge-number {
+:where([data-battery-report]) .charge-number {
   font:
-    600 26px/30px DIN,
+    600 26px/30px BatteryGuardianDIN,
     sans-serif;
 }
-.charge-unit {
+:where([data-battery-report]) .charge-unit {
   font-size: 12px;
   line-height: 18px;
   font-weight: 600;
 }
-.charge-unit--numeric {
-  font-family: DIN, sans-serif;
+:where([data-battery-report]) .charge-unit--numeric {
+  font-family: BatteryGuardianDIN, sans-serif;
   font-size: 16px;
 }
 
 /* Figma 316:2746：12px 内边距、8px 行距、24px 整数、14px 小数、12px 单位。 */
-.charge-basics {
+:where([data-battery-report]) .charge-basics {
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding: var(--content-inset);
 }
-.charge-basic-values {
+:where([data-battery-report]) .charge-basic-values {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
   margin: 0;
 }
-.charge-basic-stat {
+:where([data-battery-report]) .charge-basic-stat {
   display: flex;
   min-width: 0;
   flex-direction: column;
   align-items: flex-start;
 }
-.charge-basic-stat:nth-child(2) {
+:where([data-battery-report]) .charge-basic-stat:nth-child(2) {
   align-items: center;
 }
-.charge-basic-stat:last-child {
+:where([data-battery-report]) .charge-basic-stat:last-child {
   align-items: flex-end;
 }
-.charge-basic-stat dt {
+:where([data-battery-report]) .charge-basic-stat dt {
   order: 1;
   margin: 0;
   font-size: 12px;
@@ -1053,7 +1048,7 @@ body.sheet-open {
   color: rgba(13, 35, 44, 0.8);
   white-space: nowrap;
 }
-.charge-basic-stat dd {
+:where([data-battery-report]) .charge-basic-stat dd {
   display: flex;
   align-items: baseline;
   min-height: 24px;
@@ -1061,28 +1056,28 @@ body.sheet-open {
   color: var(--ink);
   white-space: nowrap;
 }
-.charge-basic-stat:first-child dd {
+:where([data-battery-report]) .charge-basic-stat:first-child dd {
   color: #ff8c00;
 }
-.charge-basic-stat:last-child dd {
+:where([data-battery-report]) .charge-basic-stat:last-child dd {
   color: #00bda1;
 }
-.charge-basic-number {
+:where([data-battery-report]) .charge-basic-number {
   font:
-    600 24px/24px DIN,
+    600 24px/24px BatteryGuardianDIN,
     sans-serif;
 }
-.charge-basic-fraction {
+:where([data-battery-report]) .charge-basic-fraction {
   font:
-    600 14px/14px DIN,
+    600 14px/14px BatteryGuardianDIN,
     sans-serif;
 }
-.charge-basic-unit {
+:where([data-battery-report]) .charge-basic-unit {
   font-size: 12px;
   line-height: 12px;
   font-weight: 600;
 }
-.charge-soc-track {
+:where([data-battery-report]) .charge-soc-track {
   position: relative;
   isolation: isolate;
   width: 100%;
@@ -1091,14 +1086,14 @@ body.sheet-open {
   background: #e5e4e8;
 }
 /* 纯 CSS 进度条：6px 色条，10px 端点（含 2px 白边），位置由 SOC 百分比控制。 */
-.charge-soc-fill {
+:where([data-battery-report]) .charge-soc-fill {
   position: absolute;
   left: 0;
   top: 0;
   height: 100%;
   pointer-events: none;
 }
-.charge-soc-fill::after {
+:where([data-battery-report]) .charge-soc-fill::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -1111,23 +1106,23 @@ body.sheet-open {
   background: inherit;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.08);
 }
-.charge-soc-fill--end {
+:where([data-battery-report]) .charge-soc-fill--end {
   z-index: 1;
   left: calc(var(--soc-start, 0) * 1%);
   width: calc((var(--soc-end, 0) - var(--soc-start, 0)) * 1%);
   border-radius: 0 3px 3px 0;
   background: #00bda1;
 }
-.charge-soc-fill--start {
+:where([data-battery-report]) .charge-soc-fill--start {
   z-index: 2;
   width: calc(var(--soc-start, 0) * 1%);
   border-radius: 3px 0 0 3px;
   background: #ff8c00;
 }
-.charge-soc-fill[hidden] {
+:where([data-battery-report]) .charge-soc-fill[hidden] {
   display: none;
 }
-.charge-time-range {
+:where([data-battery-report]) .charge-time-range {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: start;
@@ -1136,11 +1131,11 @@ body.sheet-open {
   line-height: 16px;
   color: rgba(13, 35, 44, 0.8);
 }
-.charge-time-range time {
+:where([data-battery-report]) .charge-time-range time {
   min-width: 0;
   white-space: nowrap;
 }
-.charge-time-range strong {
+:where([data-battery-report]) .charge-time-range strong {
   font-size: 12px;
   line-height: 16px;
   font-weight: 600;
@@ -1148,35 +1143,35 @@ body.sheet-open {
   color: var(--ink);
   white-space: nowrap;
 }
-.charge-time-range time:last-child {
+:where([data-battery-report]) .charge-time-range time:last-child {
   text-align: right;
 }
 
 /* 年检项目使用独立的小标题；表格单独收边，避免标题和表头形成两条连续色带。 */
-.annual-inspection,
-.deep-inspection {
+:where([data-battery-report]) .annual-inspection,
+:where([data-battery-report]) .deep-inspection {
   display: flow-root;
   overflow: hidden;
 }
-.inspection-header {
+:where([data-battery-report]) .inspection-header {
   display: flex;
   align-items: center;
   gap: 2px;
   padding: 4px 4px 8px;
 }
-.inspection-header > .icon {
+:where([data-battery-report]) .inspection-header > .icon {
   width: 16px;
   height: 16px;
   color: #00bda1;
 }
-.inspection-title {
+:where([data-battery-report]) .inspection-title {
   margin: 0;
   font-size: 14px;
   line-height: 20px;
   font-weight: 600;
   color: var(--ink);
 }
-.inspection-tag {
+:where([data-battery-report]) .inspection-tag {
   flex: none;
   margin-left: auto;
   padding: 0 6px;
@@ -1188,15 +1183,15 @@ body.sheet-open {
   font-weight: 400;
   white-space: nowrap;
 }
-.inspection-table-wrap,
-.curve-panel {
+:where([data-battery-report]) .inspection-table-wrap,
+:where([data-battery-report]) .curve-panel {
   margin: 0;
   overflow: hidden;
   border: 1px solid #eff5f7;
   border-radius: 10px;
   background: #fff;
 }
-.inspection-table {
+:where([data-battery-report]) .inspection-table {
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
@@ -1204,94 +1199,94 @@ body.sheet-open {
   line-height: 18px;
   text-align: left;
 }
-.inspection-table col:nth-child(1) {
+:where([data-battery-report]) .inspection-table col:nth-child(1) {
   width: 29%;
 }
-.inspection-table col:nth-child(2) {
+:where([data-battery-report]) .inspection-table col:nth-child(2) {
   width: 26%;
 }
-.inspection-table col:nth-child(3) {
+:where([data-battery-report]) .inspection-table col:nth-child(3) {
   width: 27%;
 }
-.inspection-table col:nth-child(4) {
+:where([data-battery-report]) .inspection-table col:nth-child(4) {
   width: 18%;
 }
-.inspection-table thead {
+:where([data-battery-report]) .inspection-table thead {
   background: #f5f7f8;
   color: #73878c;
 }
-.inspection-table th,
-.inspection-table td {
+:where([data-battery-report]) .inspection-table th,
+:where([data-battery-report]) .inspection-table td {
   padding: 12px 6px;
   vertical-align: middle;
   font-weight: 400;
 }
-.inspection-table tbody tr > :nth-child(2),
-.inspection-table tbody tr > :nth-child(3) {
+:where([data-battery-report]) .inspection-table tbody tr > :nth-child(2),
+:where([data-battery-report]) .inspection-table tbody tr > :nth-child(3) {
   font-weight: 400;
 }
-.inspection-table thead th {
+:where([data-battery-report]) .inspection-table thead th {
   padding-top: 8px;
   padding-bottom: 8px;
   font-weight: 600;
   white-space: nowrap;
 }
-.inspection-table th:first-child {
+:where([data-battery-report]) .inspection-table th:first-child {
   padding-left: 8px;
 }
-.inspection-table td:last-child,
-.inspection-table th:last-child {
+:where([data-battery-report]) .inspection-table td:last-child,
+:where([data-battery-report]) .inspection-table th:last-child {
   text-align: right;
   padding-right: 8px;
 }
-.inspection-table tbody th {
+:where([data-battery-report]) .inspection-table tbody th {
   color: var(--ink);
   white-space: nowrap;
 }
-.inspection-table tbody tr {
+:where([data-battery-report]) .inspection-table tbody tr {
   background: #fff;
 }
-.inspection-table tbody .inspection-row--shaded {
+:where([data-battery-report]) .inspection-table tbody .inspection-row--shaded {
   background: #f5f7f8;
 }
-.inspection-reading {
+:where([data-battery-report]) .inspection-reading {
   white-space: nowrap;
   color: var(--ink);
 }
-.inspection-reference {
+:where([data-battery-report]) .inspection-reference {
   color: #73848a;
   white-space: nowrap;
 }
-.inspection-result {
+:where([data-battery-report]) .inspection-result {
   font-size: 12px;
   font-weight: 600;
   white-space: nowrap;
 }
-.inspection-result--normal {
+:where([data-battery-report]) .inspection-result--normal {
   color: #009e86;
 }
-.inspection-result--abnormal,
-.inspection-table tr[data-result="abnormal"] .inspection-reading {
+:where([data-battery-report]) .inspection-result--abnormal,
+:where([data-battery-report]) .inspection-table tr[data-result="abnormal"] .inspection-reading {
   color: #f8330c;
 }
-.inspection-missing,
-.inspection-result--missing {
+:where([data-battery-report]) .inspection-missing,
+:where([data-battery-report]) .inspection-result--missing {
   font-size: 12px;
   color: #8b9a9f;
   white-space: nowrap;
 }
-.deep-inspection .inspection-header > .icon {
+:where([data-battery-report]) .deep-inspection .inspection-header > .icon {
   color: #8b5cf6;
 }
-.deep-inspection .inspection-tag {
+:where([data-battery-report]) .deep-inspection .inspection-tag {
   background: #f3edff;
   color: #8b5cf6;
 }
-.deep-inspection .inspection-table tbody th {
+:where([data-battery-report]) .deep-inspection .inspection-table tbody th {
   white-space: normal;
   text-wrap: balance;
 }
-.inspection-text {
+:where([data-battery-report]) .inspection-text {
   font-family: inherit;
   font-size: 12px;
   font-weight: inherit;
@@ -1300,20 +1295,20 @@ body.sheet-open {
 }
 
 /* 同车型平均对比属于整份报告，独立于充电体检单。 */
-.model-comparison {
+:where([data-battery-report]) .model-comparison {
   min-width: 0;
   border-radius: 16px;
   background: #fff;
   overflow: hidden;
 }
-.model-comparison-head {
+:where([data-battery-report]) .model-comparison-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
   padding: var(--content-inset);
 }
-.model-comparison-city {
+:where([data-battery-report]) .model-comparison-city {
   display: inline-flex;
   align-items: center;
   gap: 2px;
@@ -1322,45 +1317,45 @@ body.sheet-open {
   line-height: 18px;
   white-space: nowrap;
 }
-.model-comparison-city img {
+:where([data-battery-report]) .model-comparison-city img {
   width: 16px;
   height: 16px;
   flex: none;
 }
-.model-comparison-city img[hidden] {
+:where([data-battery-report]) .model-comparison-city img[hidden] {
   display: none;
 }
-.model-comparison-content {
+:where([data-battery-report]) .model-comparison-content {
   padding: 0 var(--nested-inset) var(--nested-inset);
 }
-.model-comparison-table col:nth-child(1) {
+:where([data-battery-report]) .model-comparison-table col:nth-child(1) {
   width: 44%;
 }
-.model-comparison-table col:nth-child(2) {
+:where([data-battery-report]) .model-comparison-table col:nth-child(2) {
   width: 30%;
 }
-.model-comparison-table col:nth-child(3) {
+:where([data-battery-report]) .model-comparison-table col:nth-child(3) {
   width: 26%;
 }
-.model-comparison-table tr > :nth-child(2) {
+:where([data-battery-report]) .model-comparison-table tr > :nth-child(2) {
   text-align: center;
   color: var(--muted);
 }
-.model-comparison-table td {
+:where([data-battery-report]) .model-comparison-table td {
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
-.model-comparison-table tbody[hidden] {
+:where([data-battery-report]) .model-comparison-table tbody[hidden] {
   display: none;
 }
-.model-comparison-table .comparison-value--abnormal {
+:where([data-battery-report]) .model-comparison-table .comparison-value--abnormal {
   color: #f8330c;
 }
-.model-comparison-table tfoot td:last-child {
+:where([data-battery-report]) .model-comparison-table tfoot td:last-child {
   padding: 0 8px 8px;
   background: #fff;
 }
-.model-comparison-benchmark {
+:where([data-battery-report]) .model-comparison-benchmark {
   display: grid;
   grid-template-columns: 30px minmax(0, 1fr);
   align-items: center;
@@ -1373,31 +1368,31 @@ body.sheet-open {
   font-size: 12px;
   line-height: 20px;
 }
-.benchmark-emblem {
+:where([data-battery-report]) .benchmark-emblem {
   display: block;
   width: 30px;
   height: 30px;
   object-fit: contain;
 }
-.benchmark-details {
+:where([data-battery-report]) .benchmark-details {
   min-width: 0;
 }
-.benchmark-copy {
+:where([data-battery-report]) .benchmark-copy {
   display: flex;
   align-items: baseline;
   gap: 3px;
   margin: 0 0 4px;
   white-space: nowrap;
 }
-.model-comparison-benchmark strong {
-  font: 600 18px/22px DIN, sans-serif;
+:where([data-battery-report]) .model-comparison-benchmark strong {
+  font: 600 18px/22px BatteryGuardianDIN, sans-serif;
   color: #b97710;
 }
-.benchmark-scale {
+:where([data-battery-report]) .benchmark-scale {
   position: relative;
   height: 6px;
 }
-.benchmark-track {
+:where([data-battery-report]) .benchmark-track {
   display: block;
   width: 100%;
   height: 6px;
@@ -1406,13 +1401,13 @@ body.sheet-open {
   -webkit-mask-image: repeating-linear-gradient(90deg, #000 0 calc(5% - 2px), transparent calc(5% - 2px) 5%);
   mask-image: repeating-linear-gradient(90deg, #000 0 calc(5% - 2px), transparent calc(5% - 2px) 5%);
 }
-.benchmark-fill {
+:where([data-battery-report]) .benchmark-fill {
   display: block;
   width: var(--rank-percent);
   height: 100%;
   background: linear-gradient(90deg, #ffd76a, #f1b42c);
 }
-.benchmark-marker {
+:where([data-battery-report]) .benchmark-marker {
   position: absolute;
   top: -1px;
   left: var(--rank-percent);
@@ -1422,13 +1417,13 @@ body.sheet-open {
   background: #cc8b17;
   transform: translateX(-50%);
 }
-.model-comparison-benchmark[data-empty="true"] {
+:where([data-battery-report]) .model-comparison-benchmark[data-empty="true"] {
   display: block;
   background: #f5f7f8;
   color: var(--muted);
   text-align: center;
 }
-.model-comparison-toggle {
+:where([data-battery-report]) .model-comparison-toggle {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1444,35 +1439,35 @@ body.sheet-open {
   font-weight: 600;
   line-height: 20px;
 }
-.model-comparison-toggle img {
+:where([data-battery-report]) .model-comparison-toggle img {
   width: 12px;
   height: 12px;
   transform: rotate(90deg);
 }
-.model-comparison-toggle[aria-expanded="true"] img {
+:where([data-battery-report]) .model-comparison-toggle[aria-expanded="true"] img {
   transform: rotate(-90deg);
 }
 
 /* 历史故障统计：报告级独立白卡，三张指标卡共用 8px 外边距与间距。 */
-.battery-faults {
+:where([data-battery-report]) .battery-faults {
   min-width: 0;
   background: #fff;
   border-radius: 16px;
   overflow: hidden;
 }
-.battery-faults-head {
+:where([data-battery-report]) .battery-faults-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
   padding: var(--content-inset);
 }
-.battery-faults-heading {
+:where([data-battery-report]) .battery-faults-heading {
   display: flex;
   align-items: center;
   gap: 2px;
 }
-.battery-faults-status {
+:where([data-battery-report]) .battery-faults-status {
   flex: none;
   padding: 2px 6px;
   border-radius: 4px;
@@ -1482,14 +1477,14 @@ body.sheet-open {
   line-height: 16px;
   white-space: nowrap;
 }
-.battery-faults-grid {
+:where([data-battery-report]) .battery-faults-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--card-gap);
   margin: 0;
   padding: 0 var(--nested-inset) var(--nested-inset);
 }
-.battery-fault-stat {
+:where([data-battery-report]) .battery-fault-stat {
   display: flex;
   min-width: 0;
   flex-direction: column;
@@ -1499,14 +1494,14 @@ body.sheet-open {
   border-radius: 10px;
   background: #f5f7f8;
 }
-.battery-fault-stat dt {
+:where([data-battery-report]) .battery-fault-stat dt {
   order: 1;
   color: var(--muted);
   font-size: 12px;
   line-height: 18px;
   white-space: nowrap;
 }
-.battery-fault-stat dd {
+:where([data-battery-report]) .battery-fault-stat dd {
   display: flex;
   align-items: baseline;
   justify-content: center;
@@ -1515,84 +1510,84 @@ body.sheet-open {
   min-height: 30px;
   white-space: nowrap;
 }
-.battery-fault-number {
-  font: 600 26px/30px DIN, sans-serif;
+:where([data-battery-report]) .battery-fault-number {
+  font: 600 26px/30px BatteryGuardianDIN, sans-serif;
 }
-.battery-fault-unit {
+:where([data-battery-report]) .battery-fault-unit {
   font-size: 12px;
   line-height: 18px;
   font-weight: 600;
 }
-.battery-fault-unit--numeric {
-  font: 600 16px/18px DIN, sans-serif;
+:where([data-battery-report]) .battery-fault-unit--numeric {
+  font: 600 16px/18px BatteryGuardianDIN, sans-serif;
 }
-.battery-fault-stat--rate dd {
+:where([data-battery-report]) .battery-fault-stat--rate dd {
   color: var(--green);
 }
-.battery-faults[data-status="fault"] .battery-faults-status {
+:where([data-battery-report]) .battery-faults[data-status="fault"] .battery-faults-status {
   color: #f8330c;
   background: #fff0ec;
 }
-.battery-faults[data-status="fault"] .battery-fault-stat--rate dd {
+:where([data-battery-report]) .battery-faults[data-status="fault"] .battery-fault-stat--rate dd {
   color: #f8330c;
 }
-.battery-faults[data-status="missing"] .battery-faults-status {
+:where([data-battery-report]) .battery-faults[data-status="missing"] .battery-faults-status {
   background: #f5f7f8;
   color: var(--muted);
 }
-.battery-faults[data-status="missing"] .battery-fault-stat dd {
+:where([data-battery-report]) .battery-faults[data-status="missing"] .battery-fault-stat dd {
   color: var(--muted);
 }
-.battery-faults[data-status="missing"] .battery-fault-number {
+:where([data-battery-report]) .battery-faults[data-status="missing"] .battery-fault-number {
   font-family: inherit;
   font-size: 20px;
   font-weight: 400;
 }
 
 /* 健康概览：左侧容量圆环，右侧六项评分；图形均由代码绘制。 */
-.battery-health {
+:where([data-battery-report]) .battery-health {
   min-width: 0;
   border-radius: 16px;
   background: #fff;
   overflow: hidden;
 }
-.battery-health-head {
+:where([data-battery-report]) .battery-health-head {
   display: flex;
   align-items: center;
   gap: 2px;
   padding: var(--content-inset);
 }
-.battery-health-content {
+:where([data-battery-report]) .battery-health-content {
   display: grid;
   grid-template-columns: clamp(128px, 38vw, 168px) minmax(0, 1fr);
   align-items: center;
   gap: 24px;
   padding: 0 var(--content-inset) var(--content-inset);
 }
-.health-capacity {
+:where([data-battery-report]) .health-capacity {
   position: relative;
   width: 100%;
   aspect-ratio: 1;
   color: #00bda1;
 }
-.health-capacity-ring {
+:where([data-battery-report]) .health-capacity-ring {
   display: block;
   width: 100%;
   height: 100%;
   fill: none;
   stroke-width: 10;
 }
-.health-capacity-track {
+:where([data-battery-report]) .health-capacity-track {
   stroke: #eaf1f3;
 }
-.health-capacity-progress {
+:where([data-battery-report]) .health-capacity-progress {
   stroke: currentColor;
   stroke-linecap: round;
 }
-.health-capacity-progress[stroke-dasharray="0 100"] {
+:where([data-battery-report]) .health-capacity-progress[stroke-dasharray="0 100"] {
   visibility: hidden;
 }
-.health-capacity-reading {
+:where([data-battery-report]) .health-capacity-reading {
   position: absolute;
   inset: 0;
   display: flex;
@@ -1601,36 +1596,36 @@ body.sheet-open {
   justify-content: center;
   gap: 2px;
 }
-.health-capacity-reading strong {
-  font: 600 36px/38px DIN, sans-serif;
+:where([data-battery-report]) .health-capacity-reading strong {
+  font: 600 36px/38px BatteryGuardianDIN, sans-serif;
 }
-.health-capacity-value {
+:where([data-battery-report]) .health-capacity-value {
   display: flex;
   align-items: baseline;
   gap: 2px;
 }
-.health-capacity-unit {
-  font: 600 18px/20px DIN, sans-serif;
+:where([data-battery-report]) .health-capacity-unit {
+  font: 600 18px/20px BatteryGuardianDIN, sans-serif;
 }
-.health-capacity-reading > span {
+:where([data-battery-report]) .health-capacity-reading > span {
   font-size: 12px;
   line-height: 18px;
   color: #73848a;
   white-space: nowrap;
 }
-.health-capacity[data-missing="true"] strong {
+:where([data-battery-report]) .health-capacity[data-missing="true"] strong {
   font-family: inherit;
   font-size: 28px;
   font-weight: 400;
   color: var(--muted);
 }
-.health-dimensions-list {
+:where([data-battery-report]) .health-dimensions-list {
   display: grid;
   gap: 4px;
   min-width: 0;
   margin: 0;
 }
-.health-dimension {
+:where([data-battery-report]) .health-dimension {
   --health-level-color: #00a98f;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -1638,13 +1633,13 @@ body.sheet-open {
   column-gap: 4px;
   min-width: 0;
 }
-.health-dimension dt {
+:where([data-battery-report]) .health-dimension dt {
   color: #536a73;
   font-size: 12px;
   line-height: 18px;
   white-space: nowrap;
 }
-.health-score-reading {
+:where([data-battery-report]) .health-score-reading {
   display: flex;
   align-items: baseline;
   justify-content: flex-end;
@@ -1652,35 +1647,35 @@ body.sheet-open {
   color: var(--health-level-color);
   white-space: nowrap;
 }
-.health-score-reading strong {
-  font: 600 14px/20px DIN, sans-serif;
+:where([data-battery-report]) .health-score-reading strong {
+  font: 600 14px/20px BatteryGuardianDIN, sans-serif;
 }
-.health-dimension[data-level="attention"] {
+:where([data-battery-report]) .health-dimension[data-level="attention"] {
   --health-level-color: #b98816;
 }
-.health-dimension[data-level="mild"] {
+:where([data-battery-report]) .health-dimension[data-level="mild"] {
   --health-level-color: #d5802e;
 }
-.health-dimension[data-level="severe"] {
+:where([data-battery-report]) .health-dimension[data-level="severe"] {
   --health-level-color: #e95649;
 }
-.health-dimension[data-level="missing"] {
+:where([data-battery-report]) .health-dimension[data-level="missing"] {
   --health-level-color: #94a1a6;
 }
-.health-dimension[data-level="missing"] .health-score-reading strong {
+:where([data-battery-report]) .health-dimension[data-level="missing"] .health-score-reading strong {
   font-family: inherit;
   font-size: 14px;
   font-weight: 400;
 }
 
 /* 充电曲线：Tab 始终单行，宽度不足时横滑；坐标轴使用系统字体。 */
-.charge-curves {
+:where([data-battery-report]) .charge-curves {
   display: flex;
   flex-direction: column;
   gap: 0;
   min-width: 0;
 }
-.curve-tabs {
+:where([data-battery-report]) .curve-tabs {
   display: flex;
   flex-wrap: nowrap;
   gap: 16px;
@@ -1690,10 +1685,10 @@ body.sheet-open {
   scrollbar-width: none;
   overscroll-behavior-x: contain;
 }
-.curve-tabs::-webkit-scrollbar {
+:where([data-battery-report]) .curve-tabs::-webkit-scrollbar {
   display: none;
 }
-.curve-tab {
+:where([data-battery-report]) .curve-tab {
   position: relative;
   flex: 1 0 auto;
   min-height: 44px;
@@ -1703,11 +1698,11 @@ body.sheet-open {
   color: #73848a;
   white-space: nowrap;
 }
-.curve-tab[aria-selected="true"] {
+:where([data-battery-report]) .curve-tab[aria-selected="true"] {
   color: var(--ink);
   font-weight: 600;
 }
-.curve-tab[aria-selected="true"]:after {
+:where([data-battery-report]) .curve-tab[aria-selected="true"]:after {
   content: "";
   position: absolute;
   bottom: 5px;
@@ -1718,10 +1713,10 @@ body.sheet-open {
   transform: translateX(-50%);
   background: #00bda1;
 }
-.curve-panel {
+:where([data-battery-report]) .curve-panel {
   padding: 10px;
 }
-.curve-meta {
+:where([data-battery-report]) .curve-meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1729,7 +1724,7 @@ body.sheet-open {
   min-height: 20px;
   margin-bottom: 4px;
 }
-.curve-legend {
+:where([data-battery-report]) .curve-legend {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -1737,65 +1732,65 @@ body.sheet-open {
   line-height: 18px;
   color: #60747c;
 }
-.curve-legend span {
+:where([data-battery-report]) .curve-legend span {
   display: inline-flex;
   align-items: center;
   gap: 4px;
   white-space: nowrap;
 }
-.curve-legend i {
+:where([data-battery-report]) .curve-legend i {
   width: 12px;
   height: 2px;
   border-radius: 2px;
   background: #f27d78;
 }
-.curve-legend span:last-child i {
+:where([data-battery-report]) .curve-legend span:last-child i {
   background: #00bda1;
 }
-.curve-meta[data-empty="true"] {
+:where([data-battery-report]) .curve-meta[data-empty="true"] {
   visibility: hidden;
 }
-.curve-plot {
+:where([data-battery-report]) .curve-plot {
   position: relative;
   min-width: 0;
   height: 212px;
 }
-.curve-svg {
+:where([data-battery-report]) .curve-svg {
   display: block;
   width: 100%;
   height: 100%;
   overflow: visible;
   touch-action: pan-y;
 }
-.curve-axis {
+:where([data-battery-report]) .curve-axis {
   font-family: inherit;
   font-size: 10px;
   font-weight: 400;
   font-variant-numeric: tabular-nums;
   fill: #8b9a9f;
 }
-.curve-grid {
+:where([data-battery-report]) .curve-grid {
   stroke: #e2eaed;
   stroke-width: 0.5;
   stroke-dasharray: 3 4;
 }
-.curve-line {
+:where([data-battery-report]) .curve-line {
   fill: none;
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.curve-line--requested {
+:where([data-battery-report]) .curve-line--requested {
   stroke: #f27d78;
 }
-.curve-line--actual {
+:where([data-battery-report]) .curve-line--actual {
   stroke: #00bda1;
 }
-.curve-empty {
+:where([data-battery-report]) .curve-empty {
   font-size: 12px;
   fill: #8b9a9f;
 }
-.curve-tooltip {
+:where([data-battery-report]) .curve-tooltip {
   position: absolute;
   z-index: 1;
   top: 8px;
@@ -1809,33 +1804,33 @@ body.sheet-open {
   line-height: 18px;
   color: #60747c;
 }
-.curve-tooltip[hidden] {
+:where([data-battery-report]) .curve-tooltip[hidden] {
   display: none;
 }
-.curve-tooltip time {
+:where([data-battery-report]) .curve-tooltip time {
   display: block;
   margin-bottom: 3px;
   font:
-    600 13px/18px DIN,
+    600 13px/18px BatteryGuardianDIN,
     sans-serif;
   color: var(--ink);
 }
-.curve-tooltip div {
+:where([data-battery-report]) .curve-tooltip div {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 8px;
 }
-.curve-tooltip strong {
+:where([data-battery-report]) .curve-tooltip strong {
   font:
-    600 14px/18px DIN,
+    600 14px/18px BatteryGuardianDIN,
     sans-serif;
   color: #f27d78;
 }
-.curve-tooltip div:last-child strong {
+:where([data-battery-report]) .curve-tooltip div:last-child strong {
   color: #00bda1;
 }
 
-.conclusions-list {
+:where([data-battery-report]) .conclusions-list {
   display: contents;
 }

@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#eaf2f7" />
+    <title>电池卫士 · 电池报告</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/professional-analysis.css" />
+    <link rel="stylesheet" href="css/battery-basics.css" />
+    <script src="js/professional-analysis.js" defer></script>
+    <script src="js/app.js" defer></script>
+  </head>
+  <body>
+    <!-- App 提供原生导航；H5 从报告头图开始。 -->
+    <div class="page-shell" id="app">
+      <header class="brand-banner" aria-label="电池卫士检测报告">
+        <img
+          class="brand-art"
+          src="assets/report-background.jpg?v=297-1594-156"
+          alt=""
+          width="1125"
+          height="468"
+        />
+        <div class="brand-copy">
+          <img
+            class="brand-heading"
+            src="assets/report-heading.png?v=297-1647"
+            alt="电池卫士检测报告"
+            width="186"
+            height="22"
+          />
+          <p class="report-meta"
+            ><span>报告编号</span
+            ><span class="report-id" id="reportId">202608030500516531</span></p
+          >
+          <div class="updated"
+            ><img
+              class="update-icon"
+              src="assets/update-time.svg"
+              alt=""
+              width="12"
+              height="12"
+            /><span
+              >更新时间
+              <time id="updateDate" datetime="2026-08-03T16:10"
+                >2026.08.03 16:10</time
+              ></span
+            ></div
+          >
+        </div>
+      </header>
+      <main class="report-content">
+        <section class="report-identity" aria-label="报告车辆">
+          <button
+            class="vehicle-switch"
+            id="vehicleSwitch"
+            type="button"
+            data-sheet="vehicles"
+            aria-label="切换车辆"
+            aria-describedby="vehiclePlate vehicleName"
+            aria-haspopup="dialog"
+            aria-controls="detailSheet"
+          >
+            <span class="vehicle-preview"
+              ><img
+                src="assets/vehicle-preview.png"
+                alt=""
+                width="70"
+                height="36"
+            /></span>
+            <span class="vehicle-copy"
+              ><span class="vehicle-plate" id="vehiclePlate">琼B·D2733</span
+              ><span class="vehicle-name" id="vehicleName"
+                >威马 EX5 400km</span
+              ></span
+            >
+            <span class="vehicle-switch-affordance" id="vehicleSwitchAffordance"
+              >切换<img
+                class="switch-arrow"
+                src="assets/vehicle-switch-arrow.svg?v=2"
+                alt=""
+                width="8"
+                height="8"
+            /></span>
+          </button>
+        </section>
+        <section class="overview" aria-label="电池状态总览">
+          <div class="score-primary">
+            <h2 class="score-label"
+              >电池安全评分<button
+                class="info-button"
+                type="button"
+                data-sheet="score"
+                aria-label="了解电池安全评分"
+                ><img
+                  class="icon"
+                  src="assets/info-circle.svg"
+                  alt=""
+                  aria-hidden="true" /></button
+            ></h2>
+            <div
+              class="score-reading"
+              role="meter"
+              aria-label="电池安全评分"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="92.8"
+              id="scoreMeter"
+              ><span class="score-number" id="score">92.8</span
+              ><span class="score-unit">分</span></div
+            >
+            <div class="safety"
+              ><div class="safety-value"
+                ><span class="safety-symbol"
+                  ><img
+                    class="icon"
+                    id="safetyIcon"
+                    src="assets/shield-check-bold.svg"
+                    alt=""
+                    aria-hidden="true" /></span
+                ><strong id="safetyState">安全</strong></div
+              ></div
+            >
+          </div>
+          <div class="metrics">
+            <button
+              class="metric soh"
+              type="button"
+              data-sheet="soh"
+              aria-haspopup="dialog"
+              aria-controls="detailSheet"
+              aria-labelledby="sohTitle"
+              aria-describedby="sohReading"
+            >
+              <span class="metric-heading"
+                ><img
+                  class="icon"
+                  src="assets/battery-charge.svg"
+                  alt=""
+                  aria-hidden="true"
+                /><span id="sohTitle">容量健康度 SOH</span></span
+              >
+              <span class="metric-reading" id="sohReading"
+                ><span class="metric-number" id="soh">78.0</span
+                ><span class="metric-unit">%</span></span
+              >
+            </button>
+            <button
+              class="metric range"
+              type="button"
+              data-sheet="range"
+              aria-haspopup="dialog"
+              aria-controls="detailSheet"
+              aria-labelledby="rangeTitle"
+              aria-describedby="rangeReading"
+            >
+              <span class="metric-heading"
+                ><img
+                  class="icon"
+                  src="assets/routing-2.svg"
+                  alt=""
+                  aria-hidden="true"
+                /><span id="rangeTitle">预计续航</span></span
+              >
+              <span class="metric-reading" id="rangeReading"
+                ><span class="metric-number" id="range">312</span
+                ><span class="metric-unit">km</span
+                ><span class="metric-note">AI 算法估算</span></span
+              >
+            </button>
+          </div>
+        </section>
+        <section class="conclusions" aria-labelledby="conclusionsTitle">
+          <div class="conclusions-head">
+            <h2 class="section-heading" id="conclusionsTitle">结论与建议</h2>
+            <span
+              class="conclusions-summary"
+              id="conclusionsSummary"
+              hidden
+            ></span>
+          </div>
+          <div class="conclusions-content">
+            <p class="conclusions-demo" id="conclusionsDemo" hidden
+              >演示报告 · 暂无具体异常指标数据</p
+            >
+            <div id="conclusionsList" class="conclusions-list"></div>
+          </div>
+          <button
+            class="evidence-trigger"
+            type="button"
+            data-sheet="evidence"
+            aria-haspopup="dialog"
+            aria-controls="detailSheet"
+            >查看诊断依据<img
+              class="icon"
+              src="assets/alt-arrow-right.svg"
+              alt=""
+              aria-hidden="true"
+          /></button>
+        </section>
+        <section class="charge-check" aria-labelledby="chargeCheckTitle">
+          <div class="charge-head">
+            <div class="charge-heading"
+              ><h2 class="section-heading" id="chargeCheckTitle">充电体检单</h2
+              ><button
+                class="info-button"
+                type="button"
+                data-sheet="charge-info"
+                aria-label="了解充电体检单"
+                aria-haspopup="dialog"
+                aria-controls="detailSheet"
+                ><img
+                  class="icon"
+                  src="assets/info-circle.svg"
+                  alt=""
+                  aria-hidden="true" /></button
+            ></div>
+            <button
+              class="charge-date"
+              id="chargeDateSwitch"
+              type="button"
+              data-sheet="charge-records"
+              aria-label="切换充电体检单"
+              aria-describedby="chargeDate"
+              aria-haspopup="dialog"
+              aria-controls="detailSheet"
+              ><time id="chargeDate"></time
+              ><img
+                class="switch-arrow"
+                id="chargeDateArrow"
+                src="assets/vehicle-switch-arrow.svg?v=2"
+                alt=""
+                width="8"
+                height="8"
+            /></button>
+          </div>
+          <div class="charge-modules">
+            <div class="charge-content">
+              <dl class="charge-stats">
+                <div class="charge-stat"
+                  ><dt>SOC 跨度</dt
+                  ><dd
+                    ><span class="charge-number" id="chargeSocSpan">78</span
+                    ><span
+                      class="charge-unit charge-unit--numeric"
+                      id="chargeSocUnit"
+                      >%</span
+                    ></dd
+                  ></div
+                >
+                <div class="charge-stat"
+                  ><dt>检测时长</dt
+                  ><dd
+                    ><span class="charge-number" id="chargeDuration">68</span
+                    ><span class="charge-unit" id="chargeDurationUnit"
+                      >分钟</span
+                    ></dd
+                  ></div
+                >
+                <div class="charge-stat"
+                  ><dt>历史订单</dt
+                  ><dd
+                    ><span class="charge-number" id="chargeOrders">10</span
+                    ><span class="charge-unit" id="chargeOrdersUnit"
+                      >笔</span
+                    ></dd
+                  ></div
+                >
+              </dl>
+            </div>
+            <section
+              class="charge-basics charge-inner-panel"
+              aria-label="本次充电基础数据"
+              data-figma-node="316:2746"
+            >
+              <dl class="charge-basic-values">
+                <div class="charge-basic-stat"
+                  ><dt>初始SOC</dt
+                  ><dd
+                    ><span class="charge-basic-number" id="chargeInitialSoc"
+                      >12</span
+                    ><span class="charge-basic-unit" id="chargeInitialUnit"
+                      >%</span
+                    ></dd
+                  ></div
+                >
+                <div class="charge-basic-stat"
+                  ><dt>充电度数</dt
+                  ><dd
+                    ><span class="charge-basic-number" id="chargeEnergyInteger"
+                      >40</span
+                    ><span
+                      class="charge-basic-fraction"
+                      id="chargeEnergyFraction"
+                      >.2</span
+                    ><span class="charge-basic-unit" id="chargeEnergyUnit"
+                      >度</span
+                    ></dd
+                  ></div
+                >
+                <div class="charge-basic-stat"
+                  ><dt>结束SOC</dt
+                  ><dd
+                    ><span class="charge-basic-number" id="chargeFinalSoc"
+                      >90</span
+                    ><span class="charge-basic-unit" id="chargeFinalUnit"
+                      >%</span
+                    ></dd
+                  ></div
+                >
+              </dl>
+              <div
+                class="charge-soc-track"
+                id="chargeSocTrack"
+                role="img"
+                aria-label="初始电量 12%，结束电量 90%"
+              >
+                <span
+                  class="charge-soc-fill charge-soc-fill--end"
+                  id="chargeSocEndFill"
+                  aria-hidden="true"
+                ></span>
+                <span
+                  class="charge-soc-fill charge-soc-fill--start"
+                  id="chargeSocStartFill"
+                  aria-hidden="true"
+                ></span>
+              </div>
+              <div class="charge-time-range"
+                ><time id="chargeStartedAt">08-03 15:02:40</time
+                ><strong id="chargeElapsed">1小时8分钟</strong
+                ><time id="chargeEndedAt">08-03 16:10:40</time></div
+              >
+            </section>
+            <section
+              class="annual-inspection"
+              aria-labelledby="annualInspectionTitle"
+            >
+              <header class="inspection-header">
+                <img
+                  class="icon"
+                  src="assets/clipboard-check-bold.svg"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <h3 class="inspection-title" id="annualInspectionTitle"
+                  >动力电池年检项目</h3
+                >
+                <span class="inspection-tag">年检核心项</span>
+              </header>
+              <div class="inspection-table-wrap">
+                <table
+                  class="inspection-table"
+                  aria-labelledby="annualInspectionTitle"
+                >
+                  <colgroup><col /><col /><col /><col /></colgroup>
+                  <thead
+                    ><tr
+                      ><th scope="col">体检项</th><th scope="col">检测值</th
+                      ><th scope="col">参考阈值</th
+                      ><th scope="col">结果</th></tr
+                    ></thead
+                  >
+                  <tbody id="annualInspectionRows"></tbody>
+                </table>
+              </div>
+            </section>
+            <section
+              class="deep-inspection"
+              aria-labelledby="deepInspectionTitle"
+            >
+              <header class="inspection-header">
+                <img
+                  class="icon"
+                  src="assets/search-fill.svg"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <h3 class="inspection-title" id="deepInspectionTitle"
+                  >深度检测项目</h3
+                >
+                <span class="inspection-tag">AI 深度分析</span>
+              </header>
+              <div class="inspection-table-wrap">
+                <table
+                  class="inspection-table"
+                  aria-labelledby="deepInspectionTitle"
+                >
+                  <colgroup><col /><col /><col /><col /></colgroup>
+                  <thead
+                    ><tr
+                      ><th scope="col">体检项</th><th scope="col">检测值</th
+                      ><th scope="col">参考阈值</th
+                      ><th scope="col">结果</th></tr
+                    ></thead
+                  >
+                  <tbody id="deepInspectionRows"></tbody>
+                </table>
+              </div>
+            </section>
+            <section class="charge-curves" aria-label="充电过程曲线">
+              <div
+                class="curve-tabs"
+                id="curveTabs"
+                role="tablist"
+                aria-label="选择充电曲线"
+              >
+                <button
+                  class="curve-tab"
+                  type="button"
+                  role="tab"
+                  id="curveTab-current"
+                  data-curve="current"
+                  aria-selected="true"
+                  aria-controls="curvePanel"
+                  >电流曲线</button
+                >
+                <button
+                  class="curve-tab"
+                  type="button"
+                  role="tab"
+                  id="curveTab-voltage"
+                  data-curve="voltage"
+                  aria-selected="false"
+                  aria-controls="curvePanel"
+                  tabindex="-1"
+                  >电压曲线</button
+                >
+                <button
+                  class="curve-tab"
+                  type="button"
+                  role="tab"
+                  id="curveTab-temperature"
+                  data-curve="temperature"
+                  aria-selected="false"
+                  aria-controls="curvePanel"
+                  tabindex="-1"
+                  >温度曲线</button
+                >
+                <button
+                  class="curve-tab"
+                  type="button"
+                  role="tab"
+                  id="curveTab-soc"
+                  data-curve="soc"
+                  aria-selected="false"
+                  aria-controls="curvePanel"
+                  tabindex="-1"
+                  >SOC</button
+                >
+                <button
+                  class="curve-tab"
+                  type="button"
+                  role="tab"
+                  id="curveTab-power"
+                  data-curve="power"
+                  aria-selected="false"
+                  aria-controls="curvePanel"
+                  tabindex="-1"
+                  >功率</button
+                >
+                <button
+                  class="curve-tab"
+                  type="button"
+                  role="tab"
+                  id="curveTab-cellVoltage"
+                  data-curve="cellVoltage"
+                  aria-selected="false"
+                  aria-controls="curvePanel"
+                  tabindex="-1"
+                  >单体最高电压</button
+                >
+              </div>
+              <div
+                class="curve-panel"
+                id="curvePanel"
+                role="tabpanel"
+                aria-labelledby="curveTab-current"
+              >
+                <div class="curve-meta" id="curveMeta">
+                  <div class="curve-legend" aria-label="曲线图例"
+                    ><span><i aria-hidden="true"></i>需求电流</span
+                    ><span><i aria-hidden="true"></i>实际电流</span></div
+                  >
+                </div>
+                <div class="curve-plot" id="curvePlot">
+                  <svg
+                    class="curve-svg"
+                    id="curveSvg"
+                    role="img"
+                    aria-label="电流曲线"
+                    tabindex="0"
+                  ></svg>
+                  <div class="curve-tooltip" id="curveTooltip" hidden></div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+        <section class="model-comparison" aria-labelledby="modelComparisonTitle">
+          <header class="model-comparison-head">
+            <h2 class="section-heading" id="modelComparisonTitle">同车型平均对比</h2>
+            <span class="model-comparison-city">
+              <img id="modelComparisonLocationIcon" src="assets/MingcuteLocation2Fill.svg?v=2" alt="" aria-hidden="true" />
+              <span id="modelComparisonCity"></span>
+            </span>
+          </header>
+          <div class="model-comparison-content">
+            <div class="inspection-table-wrap">
+              <table
+                class="inspection-table model-comparison-table"
+                aria-labelledby="modelComparisonTitle"
+                aria-describedby="modelComparisonScope"
+              >
+                <colgroup><col /><col /><col /></colgroup>
+                <thead>
+                  <tr>
+                    <th scope="col">对比项</th>
+                    <th scope="col">同城同车型</th>
+                    <th scope="col">本车</th>
+                  </tr>
+                </thead>
+                <tbody id="modelComparisonPreview"></tbody>
+                <tbody id="modelComparisonMore" hidden></tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="3">
+                      <button
+                        class="model-comparison-toggle"
+                        id="modelComparisonToggle"
+                        type="button"
+                        aria-expanded="false"
+                        aria-controls="modelComparisonMore"
+                      >
+                        <span id="modelComparisonToggleText">查看全部11项</span>
+                        <img src="assets/alt-arrow-right.svg" alt="" aria-hidden="true" />
+                      </button>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <div class="model-comparison-benchmark" id="modelComparisonBenchmark"></div>
+          </div>
+          <p class="screenreader-only" id="modelComparisonScope"></p>
+        </section>
+        <section class="battery-faults" id="batteryFaults" aria-labelledby="batteryFaultsTitle">
+          <header class="battery-faults-head">
+            <div class="battery-faults-heading">
+              <h2 class="section-heading" id="batteryFaultsTitle">电池故障情况</h2>
+              <button
+                class="info-button"
+                type="button"
+                data-sheet="fault-info"
+                aria-label="了解电池故障情况"
+                aria-haspopup="dialog"
+                aria-controls="detailSheet"
+              ><img class="icon" src="assets/info-circle.svg" alt="" aria-hidden="true" /></button>
+            </div>
+            <span class="battery-faults-status" id="batteryFaultsStatus"></span>
+          </header>
+          <dl class="battery-faults-grid">
+            <div class="battery-fault-stat battery-fault-stat--rate">
+              <dt>故障率</dt>
+              <dd><span class="battery-fault-number" id="batteryFaultRate">-</span><span class="battery-fault-unit battery-fault-unit--numeric" id="batteryFaultRateUnit"></span></dd>
+            </div>
+            <div class="battery-fault-stat">
+              <dt>故障订单数</dt>
+              <dd><span class="battery-fault-number" id="batteryFaultOrders">-</span><span class="battery-fault-unit" id="batteryFaultOrdersUnit"></span></dd>
+            </div>
+            <div class="battery-fault-stat">
+              <dt>充电订单数</dt>
+              <dd><span class="battery-fault-number" id="batteryChargeOrders">-</span><span class="battery-fault-unit" id="batteryChargeOrdersUnit"></span></dd>
+            </div>
+          </dl>
+        </section>
+        <section class="battery-health" id="batteryHealth" aria-labelledby="batteryHealthTitle">
+          <header class="battery-health-head">
+            <h2 class="section-heading" id="batteryHealthTitle">电池健康概览</h2>
+            <button
+              class="info-button"
+              type="button"
+              data-sheet="health-info"
+              aria-label="了解电池健康概览"
+              aria-haspopup="dialog"
+              aria-controls="detailSheet"
+            ><img class="icon" src="assets/info-circle.svg" alt="" aria-hidden="true" /></button>
+          </header>
+          <div class="battery-health-content">
+            <div class="health-capacity" id="healthCapacityGauge" role="img" aria-label="容量健康度 SOH，暂无数据">
+              <svg class="health-capacity-ring" viewBox="0 0 120 120" aria-hidden="true">
+                <circle class="health-capacity-track" cx="60" cy="60" r="53" />
+                <circle class="health-capacity-progress" id="healthCapacityProgress" cx="60" cy="60" r="53" pathLength="100" stroke-dasharray="0 100" transform="rotate(-90 60 60)" />
+              </svg>
+              <div class="health-capacity-reading" aria-hidden="true">
+                <div class="health-capacity-value"><strong id="healthCapacityValue">-</strong><span class="health-capacity-unit" id="healthCapacityUnit"></span></div>
+                <span>容量健康度 SOH</span>
+              </div>
+            </div>
+            <dl class="health-dimensions-list" id="healthDimensionsList" aria-label="分项评分，满分100分"></dl>
+          </div>
+        </section>
+        <section class="professional-analysis" id="professionalAnalysis" aria-labelledby="professionalAnalysisTitle">
+          <header class="professional-analysis-head">
+            <h2 class="section-heading" id="professionalAnalysisTitle">电池健康专业分析</h2>
+            <button class="info-button" type="button" data-sheet="professional-info" aria-label="了解电池健康专业分析" aria-haspopup="dialog" aria-controls="detailSheet"><img class="icon" src="assets/info-circle.svg" alt="" aria-hidden="true" /></button>
+          </header>
+          <div class="professional-analysis-list" id="professionalAnalysisList"></div>
+        </section>
+        <section class="battery-basics" id="batteryBasics" aria-labelledby="batteryBasicsTitle">
+          <header class="battery-basics-head">
+            <h2 class="section-heading" id="batteryBasicsTitle">车辆与电池基本信息</h2>
+            <span class="battery-basics-fault">电池故障率 <span id="basicFaultRate">-</span></span>
+          </header>
+          <div class="battery-basics-content">
+            <dl class="battery-basics-specs">
+              <div class="battery-basics-spec"><dt>电池类型</dt><dd class="battery-basics-type" id="basicBatteryType">-</dd><img class="battery-basics-divider" src="assets/battery-spec-divider.svg" width="20" height="1" alt="" aria-hidden="true" /></div>
+              <div class="battery-basics-spec"><dt>额定容量</dt><dd><span id="basicRatedCapacity">-</span><span class="battery-basics-spec-unit" id="basicRatedCapacityUnit"></span></dd><img class="battery-basics-divider" src="assets/battery-spec-divider.svg" width="20" height="1" alt="" aria-hidden="true" /></div>
+              <div class="battery-basics-spec"><dt>标称总能量</dt><dd><span id="basicNominalEnergy">-</span><span class="battery-basics-spec-unit" id="basicNominalEnergyUnit"></span></dd><img class="battery-basics-divider" src="assets/battery-spec-divider.svg" width="20" height="1" alt="" aria-hidden="true" /></div>
+              <div class="battery-basics-spec"><dt>预计续航</dt><dd><span id="basicRange">-</span><span class="battery-basics-spec-unit" id="basicRangeUnit"></span></dd></div>
+            </dl>
+            <div class="battery-basics-main">
+              <div class="battery-basics-valuation">
+                <div class="battery-basics-art"><img src="assets/battery-pack.png" width="124" height="124" alt="" aria-hidden="true" /></div>
+                <div class="battery-basics-estimate">
+                  <p class="battery-basics-price"><span id="basicEstimate">-</span><span class="battery-basics-price-unit" id="basicEstimateUnit"></span></p>
+                  <p class="battery-basics-price-label">当前电池估价</p>
+                </div>
+              </div>
+              <img class="battery-basics-connector" src="assets/battery-parameter-connector.svg" width="38" height="196" alt="" aria-hidden="true" />
+              <dl class="battery-basics-limits">
+                <div class="battery-basics-limit"><dt>单体最高允许电压</dt><dd><span id="basicCellVoltage">-</span><span class="battery-basics-limit-unit" id="basicCellVoltageUnit"></span></dd></div>
+                <div class="battery-basics-limit"><dt>电池最高允许温度</dt><dd><span id="basicMaxTemperature">-</span><span class="battery-basics-limit-unit" id="basicMaxTemperatureUnit"></span></dd></div>
+                <div class="battery-basics-limit"><dt>最高允许总电压</dt><dd><span id="basicTotalVoltage">-</span><span class="battery-basics-limit-unit" id="basicTotalVoltageUnit"></span></dd></div>
+              </dl>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <dialog class="sheet" id="detailSheet" aria-labelledby="sheetTitle"
+      ><div class="sheet-head"
+        ><h2 id="sheetTitle"></h2
+        ><button class="sheet-close" type="button" aria-label="关闭"
+          ><img
+            class="icon"
+            src="assets/close.svg"
+            alt=""
+            aria-hidden="true" /></button></div
+      ><div class="sheet-body" id="sheetBody"></div
+      ><div class="sheet-actions" id="sheetActions" hidden
+        ><button class="evidence-confirm" type="button">我知道了</button></div
+      ></dialog
+    >
+    <div
+      class="screenreader-only"
+      id="stateAnnouncement"
+      aria-live="polite"
+    ></div>
+  </body>
+</html>

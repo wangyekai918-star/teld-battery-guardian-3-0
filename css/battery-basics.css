@@ -1,0 +1,173 @@
+/* Figma 330:2813：标题下先展示四项基本信息，再展示估价与三项允许值。 */
+.battery-basics {
+  min-width: 0;
+  border-radius: 16px;
+  background: #fff;
+  overflow: hidden;
+}
+.battery-basics-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: var(--content-inset) var(--content-inset) 0;
+}
+.battery-basics-head .section-heading {
+  line-height: 22px;
+}
+.battery-basics-fault {
+  flex: none;
+  color: rgba(13, 35, 44, .6);
+  font-size: 12px;
+  line-height: 17px;
+  white-space: nowrap;
+}
+.battery-basics-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: var(--nested-inset);
+}
+.battery-basics-main {
+  display: grid;
+  grid-template-columns: minmax(0, 130fr) 38px minmax(0, 175fr);
+  align-items: center;
+}
+.battery-basics-valuation {
+  height: 196px;
+  min-width: 0;
+  border-radius: 8px;
+  background: #f4f6f8;
+  overflow: hidden;
+}
+.battery-basics-art {
+  display: grid;
+  place-items: center;
+  height: 138px;
+}
+.battery-basics-art img {
+  display: block;
+  width: calc(100% - 6px);
+  max-width: 123.411px;
+  height: 123.411px;
+  object-fit: contain;
+  mix-blend-mode: darken;
+  transform: translateY(3px);
+}
+.battery-basics-estimate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  height: 58px;
+}
+.battery-basics-price {
+  display: flex;
+  align-items: baseline;
+  margin: 0;
+  color: #00c86b;
+  font: 600 26px/26px DIN, sans-serif;
+  white-space: nowrap;
+}
+.battery-basics-price-unit {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 14px;
+  line-height: 14px;
+}
+.battery-basics-price-label {
+  margin: 0;
+  color: rgba(13, 35, 44, .8);
+  font-size: 12px;
+  line-height: 17px;
+}
+.battery-basics-connector {
+  display: block;
+  width: 38px;
+  height: 196px;
+}
+.battery-basics-limits {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+}
+.battery-basics-limit {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  height: 60px;
+  padding: 8px;
+  border-radius: 8px;
+  background: #f4f6f8;
+}
+.battery-basics-limit dt {
+  order: 1;
+  font-size: 12px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+.battery-basics-limit dd {
+  display: flex;
+  align-items: baseline;
+  margin: 0;
+  font: 600 24px/24px DIN, sans-serif;
+  white-space: nowrap;
+}
+.battery-basics-limit-unit {
+  font-size: 14px;
+  line-height: 14px;
+}
+.battery-basics-specs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+}
+.battery-basics-spec {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+  height: 54px;
+}
+.battery-basics-spec dt {
+  order: 1;
+  color: rgba(13, 35, 44, .6);
+  font-size: 12px;
+  line-height: 17px;
+  white-space: nowrap;
+}
+.battery-basics-spec dd {
+  display: flex;
+  align-items: baseline;
+  margin: 0;
+  font: 600 20px/20px DIN, sans-serif;
+  white-space: nowrap;
+}
+.battery-basics-spec-unit {
+  font-size: 10px;
+  line-height: 10px;
+}
+.battery-basics-spec .battery-basics-type {
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 18px;
+}
+.battery-basics-divider {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 8px);
+  width: 20px;
+  height: 1px;
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+.battery-basics [data-missing="true"] {
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+}

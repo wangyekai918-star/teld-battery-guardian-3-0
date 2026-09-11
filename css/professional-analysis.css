@@ -226,9 +226,3 @@
     font-size: 10px;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  :where([data-battery-report]) .professional-panel,
-:where([data-battery-report]) .professional-chevron {
-    transition: none;
-  }
-}

@@ -529,16 +529,6 @@
     padding-left: 0;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  :where([data-battery-report]),
-:where([data-battery-report]) *,
-:where([data-battery-report]) *:before,
-:where([data-battery-report]) *:after {
-    transition: none !important;
-    scroll-behavior: auto !important;
-  }
-}
-
 /* 抽屉统一动效：打开时从底部滑入，关闭结束后再退出原生模态层。 */
 :where([data-battery-report]) .sheet[open] {
   animation: bg-sheet-enter var(--bg-sheet-enter-duration) var(--bg-sheet-enter-easing) both;
@@ -601,13 +591,6 @@
     opacity: 0;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  :where([data-battery-report]) .sheet[open],
-:where([data-battery-report]) .sheet[open]::backdrop {
-    animation: none !important;
-  }
-}
-
 /* Figma 292:1135：标题 (18,33)，三行间距 6px，更新时间容器圆角 38px；车辆图片区 66×40，内容区左右 8px。 */
 :where([data-battery-report]) .brand-copy {
   position: absolute;
